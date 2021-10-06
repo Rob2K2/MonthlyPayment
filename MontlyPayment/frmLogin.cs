@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Users;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +13,8 @@ namespace MontlyPayment
 {
     public partial class frmLogin : Form
     {
+        private readonly UsersBL userBL = new UsersBL();
+
         public frmLogin()
         {
             InitializeComponent();
@@ -19,7 +22,7 @@ namespace MontlyPayment
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -29,7 +32,33 @@ namespace MontlyPayment
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Log in Successful");
+            if (txtUsername.Text!="" && txtPassword.Text!="" )
+            {
+                if (userBL.Login(txtUsername.Text, txtPassword.Text, Convert.ToInt32( cboUserType.SelectedValue) ))
+                {
+                    MessageBox.Show("logged in successful");
+                }
+                else
+                {
+                    MessageBox.Show("Username or Password incorrect");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Enter all data");
+            }
+        }
+
+        private void frmLogin_Load(object sender, EventArgs e)
+        {
+            FillComboUserType();
+        }
+
+        private void FillComboUserType()
+        {
+            cboUserType.DataSource = userBL.GetUsersType();
+            cboUserType.ValueMember = "UserTypeID";
+            cboUserType.DisplayMember = "Type";
         }
     }
 }
