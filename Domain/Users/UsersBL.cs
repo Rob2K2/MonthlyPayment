@@ -21,5 +21,15 @@ namespace Domain.Users
         {
             return userDAL.GetUsersType();
         }
+
+        public List<User> GetEmployees()
+        {
+            return userDAL.GetEmployees();
+        }
+
+        public List<Payment> GetPayments()
+        {
+            return userDAL.GetPayments();
+        }
     }
 }

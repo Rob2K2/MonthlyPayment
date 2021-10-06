@@ -32,11 +32,20 @@ namespace MontlyPayment
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (txtUsername.Text!="" && txtPassword.Text!="" )
+            if (txtUsername.Text != "" && txtPassword.Text != "")
             {
-                if (userBL.Login(txtUsername.Text, txtPassword.Text, Convert.ToInt32( cboUserType.SelectedValue) ))
+                if (userBL.Login(txtUsername.Text, txtPassword.Text, Convert.ToInt32(cboUserType.SelectedValue)))
                 {
-                    MessageBox.Show("logged in successful");
+                    if (Convert.ToInt32(cboUserType.SelectedValue) == 1)
+                    {
+                        frmPaymentList frmEmployeeList = new frmPaymentList();
+                        frmEmployeeList.Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+
+                    }
                 }
                 else
                 {
