@@ -13,10 +13,12 @@ namespace MontlyPayment
 {
     public partial class frmLogin : Form
     {
-        private readonly UsersBL userBL = new UsersBL();
+        private readonly IUsersBL _userBL;
 
-        public frmLogin()
+        public frmLogin(IUsersBL userBL)
         {
+            _userBL = userBL;
+
             InitializeComponent();
         }
 
@@ -34,13 +36,13 @@ namespace MontlyPayment
         {
             if (txtUsername.Text != "" && txtPassword.Text != "")
             {
-                if (userBL.Login(txtUsername.Text, txtPassword.Text, Convert.ToInt32(cboUserType.SelectedValue)))
+                if (_userBL.Login(txtUsername.Text, txtPassword.Text, Convert.ToInt32(cboUserType.SelectedValue)))
                 {
                     if (Convert.ToInt32(cboUserType.SelectedValue) == 1)
                     {
-                        frmPaymentList frmEmployeeList = new frmPaymentList();
+                        frmPaymentList frmEmployeeList = new frmPaymentList(_userBL);
                         frmEmployeeList.Show();
-                        this.Hide();
+                        Hide();
                     }
                     else
                     {
@@ -65,7 +67,7 @@ namespace MontlyPayment
 
         private void FillComboUserType()
         {
-            cboUserType.DataSource = userBL.GetUsersType();
+            cboUserType.DataSource = _userBL.GetUsersType();
             cboUserType.ValueMember = "UserTypeID";
             cboUserType.DisplayMember = "Type";
         }

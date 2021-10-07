@@ -13,10 +13,12 @@ namespace MontlyPayment
 {
     public partial class frmPaymentList : Form
     {
-        private readonly UsersBL userBL = new UsersBL();
+        private readonly IUsersBL _userBL;
 
-        public frmPaymentList()
+        public frmPaymentList(IUsersBL userBL)
         {
+            _userBL = userBL;
+
             InitializeComponent();
         }
 
@@ -30,7 +32,7 @@ namespace MontlyPayment
             dtpToDate.Value = DateTime.Today;
             dtpFromDate.Value = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
             dgvPayments.AutoGenerateColumns = false;
-            dgvPayments.DataSource = userBL.GetPayments();
+            dgvPayments.DataSource = _userBL.GetPayments();
         }
 
         private void frmEmployeeList_FormClosed(object sender, FormClosedEventArgs e)
@@ -45,7 +47,7 @@ namespace MontlyPayment
 
         private void btnNewPayment_Click(object sender, EventArgs e)
         {
-            frmPayment frmEmployeeListDetails = new frmPayment();
+            frmPayment frmEmployeeListDetails = new frmPayment(_userBL);
             DialogResult res = frmEmployeeListDetails.ShowDialog();
             if (res == DialogResult.OK)
             {

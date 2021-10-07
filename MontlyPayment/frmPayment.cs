@@ -13,17 +13,19 @@ namespace MontlyPayment
 {
     public partial class frmPayment : Form
     {
-        private readonly UsersBL userBL = new UsersBL();
+        private readonly IUsersBL _userBL;
 
-        public frmPayment()
+        public frmPayment(IUsersBL userBL)
         {
+            _userBL = userBL;
+
             InitializeComponent();
         }
 
         private void frmEmployeeList_Load(object sender, EventArgs e)
         {
             dgvEmployees.AutoGenerateColumns = false;
-            var employees = userBL.GetEmployees();
+            var employees = _userBL.GetEmployees();
             
             for (int i = 0; i < employees.Count; i++)
             {

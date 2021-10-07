@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 
 namespace DataAccess.Users
 {
-    public class UsersDAL
+    public class UsersDAL : IUsersDAL
     {
         public bool Login(string username, string password, int userType)
         {

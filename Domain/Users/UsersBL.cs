@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Users
 {
-    public class UsersBL
+    public class UsersBL : IUsersBL
     {
         private readonly UsersDAL userDAL = new UsersDAL();
 
