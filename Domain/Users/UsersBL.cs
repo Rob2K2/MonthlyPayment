@@ -10,26 +10,57 @@ namespace Domain.Users
 {
     public class UsersBL : IUsersBL
     {
-        private readonly UsersDAL userDAL = new UsersDAL();
+        private readonly IUsersDAL _userDAL;
+
+        public UsersBL(IUsersDAL userDAL)
+        {
+            _userDAL = userDAL;
+        }
 
         public bool Login(string username, string password, int userType)
         {
-            return userDAL.Login(username, password, userType);
+            return _userDAL.Login(username, password, userType);
         }
 
         public List<UserType> GetUsersType()
         {
-            return userDAL.GetUsersType();
+            return _userDAL.GetUsersType();
         }
 
         public List<User> GetEmployees()
         {
-            return userDAL.GetEmployees();
+            return _userDAL.GetEmployees();
         }
 
         public List<Payment> GetPayments()
         {
-            return userDAL.GetPayments();
+            return _userDAL.GetPayments();
+        }
+
+        public int InsertPaymentList(DateTime paymentDate, string observations)
+        {
+            return _userDAL.InsertPaymentList(paymentDate, observations);
+        }
+
+        public void InsertPaymentDetail(PaymentDetail paymentDetail)
+        {
+            _userDAL.InsertPaymentDetail(paymentDetail);
+        }
+
+        public Payment GetPaymentList(int idPayment)
+        {
+            return _userDAL.GetPaymentList(idPayment);
+        }
+
+        public List<PaymentDetail> GetPaymentDetail(int idPayment)
+        {
+            return _userDAL.GetPaymentDetail(idPayment);
+        }
+
+        public void UpdatePaymentList(DateTime paymentDate, string observations, int idPayment)
+        {
+            _userDAL.UpdatePaymentList(paymentDate, observations, idPayment);
+            _userDAL.DeletePaymentDetail(idPayment);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Domain.Users;
+﻿using DataAccess.Users;
+using Domain.Users;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,11 +26,6 @@ namespace MontlyPayment
         private void button2_Click(object sender, EventArgs e)
         {
             Close();
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void button1_Click(object sender, EventArgs e)

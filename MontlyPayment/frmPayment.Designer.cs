@@ -36,13 +36,18 @@ namespace MontlyPayment
             this.btnSave = new System.Windows.Forms.Button();
             this.dtpPaymentDate = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtObservation = new System.Windows.Forms.TextBox();
+            this.txtObservations = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnLoadEmployees = new System.Windows.Forms.Button();
+            this.UserID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Lastname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Pay = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BasicSalary = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Bonus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Discounts = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalSalary = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Payed = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployees)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,16 +63,24 @@ namespace MontlyPayment
             // 
             // dgvEmployees
             // 
+            this.dgvEmployees.AllowUserToAddRows = false;
+            this.dgvEmployees.AllowUserToDeleteRows = false;
+            this.dgvEmployees.AllowUserToResizeColumns = false;
+            this.dgvEmployees.AllowUserToResizeRows = false;
             this.dgvEmployees.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvEmployees.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
+            this.UserID,
+            this.Name,
             this.Lastname,
-            this.Column3,
-            this.Pay});
+            this.email,
+            this.BasicSalary,
+            this.Bonus,
+            this.Discounts,
+            this.TotalSalary,
+            this.Payed});
             this.dgvEmployees.Location = new System.Drawing.Point(12, 104);
             this.dgvEmployees.Name = "dgvEmployees";
-            this.dgvEmployees.Size = new System.Drawing.Size(817, 428);
+            this.dgvEmployees.Size = new System.Drawing.Size(948, 428);
             this.dgvEmployees.TabIndex = 3;
             // 
             // btnCancel
@@ -75,7 +88,7 @@ namespace MontlyPayment
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(754, 538);
+            this.btnCancel.Location = new System.Drawing.Point(885, 538);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 37);
             this.btnCancel.TabIndex = 10;
@@ -88,7 +101,7 @@ namespace MontlyPayment
             // 
             this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(673, 538);
+            this.btnSave.Location = new System.Drawing.Point(804, 538);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 37);
             this.btnSave.TabIndex = 9;
@@ -114,12 +127,12 @@ namespace MontlyPayment
             this.label2.TabIndex = 20;
             this.label2.Text = "Date:";
             // 
-            // txtObservation
+            // txtObservations
             // 
-            this.txtObservation.Location = new System.Drawing.Point(538, 61);
-            this.txtObservation.Name = "txtObservation";
-            this.txtObservation.Size = new System.Drawing.Size(256, 20);
-            this.txtObservation.TabIndex = 23;
+            this.txtObservations.Location = new System.Drawing.Point(538, 61);
+            this.txtObservations.Name = "txtObservations";
+            this.txtObservations.Size = new System.Drawing.Size(256, 20);
+            this.txtObservations.TabIndex = 23;
             // 
             // label3
             // 
@@ -130,17 +143,27 @@ namespace MontlyPayment
             this.label3.TabIndex = 22;
             this.label3.Text = "Observations:";
             // 
-            // Column1
+            // btnLoadEmployees
             // 
-            this.Column1.DataPropertyName = "UserID";
-            this.Column1.HeaderText = "ID";
-            this.Column1.Name = "Column1";
+            this.btnLoadEmployees.Location = new System.Drawing.Point(861, 59);
+            this.btnLoadEmployees.Name = "btnLoadEmployees";
+            this.btnLoadEmployees.Size = new System.Drawing.Size(93, 23);
+            this.btnLoadEmployees.TabIndex = 24;
+            this.btnLoadEmployees.Text = "Load Employees";
+            this.btnLoadEmployees.UseVisualStyleBackColor = true;
+            this.btnLoadEmployees.Click += new System.EventHandler(this.btnLoadEmployees_Click);
             // 
-            // Column2
+            // UserID
             // 
-            this.Column2.DataPropertyName = "FirstName";
-            this.Column2.HeaderText = "Name";
-            this.Column2.Name = "Column2";
+            this.UserID.DataPropertyName = "UserID";
+            this.UserID.HeaderText = "ID";
+            this.UserID.Name = "UserID";
+            // 
+            // Name
+            // 
+            this.Name.DataPropertyName = "Name";
+            this.Name.HeaderText = "Name";
+            this.Name.Name = "Name";
             // 
             // Lastname
             // 
@@ -148,23 +171,49 @@ namespace MontlyPayment
             this.Lastname.HeaderText = "Lastname";
             this.Lastname.Name = "Lastname";
             // 
-            // Column3
+            // email
             // 
-            this.Column3.DataPropertyName = "Salary";
-            this.Column3.HeaderText = "Salary";
-            this.Column3.Name = "Column3";
+            this.email.DataPropertyName = "Email";
+            this.email.HeaderText = "Email";
+            this.email.Name = "email";
             // 
-            // Pay
+            // BasicSalary
             // 
-            this.Pay.HeaderText = "Pay";
-            this.Pay.Name = "Pay";
+            this.BasicSalary.DataPropertyName = "BasicSalary";
+            this.BasicSalary.HeaderText = "Basic Salary";
+            this.BasicSalary.Name = "BasicSalary";
+            // 
+            // Bonus
+            // 
+            this.Bonus.DataPropertyName = "Bonus";
+            this.Bonus.HeaderText = "Bonus";
+            this.Bonus.Name = "Bonus";
+            // 
+            // Discounts
+            // 
+            this.Discounts.DataPropertyName = "Discounts";
+            this.Discounts.HeaderText = "Discounts";
+            this.Discounts.Name = "Discounts";
+            // 
+            // TotalSalary
+            // 
+            this.TotalSalary.DataPropertyName = "TotalSalary";
+            this.TotalSalary.HeaderText = "Total Salary";
+            this.TotalSalary.Name = "TotalSalary";
+            // 
+            // Payed
+            // 
+            this.Payed.DataPropertyName = "IsPayed";
+            this.Payed.HeaderText = "Payed";
+            this.Payed.Name = "Payed";
             // 
             // frmPayment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(841, 587);
-            this.Controls.Add(this.txtObservation);
+            this.ClientSize = new System.Drawing.Size(966, 587);
+            this.Controls.Add(this.btnLoadEmployees);
+            this.Controls.Add(this.txtObservations);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.dtpPaymentDate);
             this.Controls.Add(this.label2);
@@ -172,7 +221,6 @@ namespace MontlyPayment
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.dgvEmployees);
             this.Controls.Add(this.label1);
-            this.Name = "frmPayment";
             this.Text = "HHRR - Payment";
             this.Load += new System.EventHandler(this.frmEmployeeList_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployees)).EndInit();
@@ -189,12 +237,17 @@ namespace MontlyPayment
         internal System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.DateTimePicker dtpPaymentDate;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtObservation;
+        private System.Windows.Forms.TextBox txtObservations;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.Button btnLoadEmployees;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UserID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Name;
         private System.Windows.Forms.DataGridViewTextBoxColumn Lastname;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Pay;
+        private System.Windows.Forms.DataGridViewTextBoxColumn email;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BasicSalary;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Bonus;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Discounts;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TotalSalary;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Payed;
     }
 }

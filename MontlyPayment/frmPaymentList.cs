@@ -1,4 +1,5 @@
-﻿using Domain.Users;
+﻿using DataAccess.Users;
+using Domain.Users;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,16 +16,13 @@ namespace MontlyPayment
     {
         private readonly IUsersBL _userBL;
 
+        public static int idPayment;
+
         public frmPaymentList(IUsersBL userBL)
         {
             _userBL = userBL;
 
             InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void frmEmployeeList_Load(object sender, EventArgs e)
@@ -47,17 +45,37 @@ namespace MontlyPayment
 
         private void btnNewPayment_Click(object sender, EventArgs e)
         {
+            idPayment = 0;
             frmPayment frmEmployeeListDetails = new frmPayment(_userBL);
             DialogResult res = frmEmployeeListDetails.ShowDialog();
             if (res == DialogResult.OK)
             {
-                MessageBox.Show("Guardado correctamente");
+                MessageBox.Show("Payment Saved Successfully");
+                dgvPayments.DataSource = _userBL.GetPayments();
             }
         }
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            if ((dgvPayments.RowCount == 0))
+            {
+                MessageBox.Show("There are no rows to edit.", "JALA", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            idPayment = Convert.ToInt32(dgvPayments.CurrentRow.Cells["PaymentID"].Value);
+            frmPayment frmEmployeeListDetails = new frmPayment(_userBL);
+            DialogResult res = frmEmployeeListDetails.ShowDialog();
+            if (res == DialogResult.OK)
+            {
+                MessageBox.Show("Edited successfully");
+                dgvPayments.DataSource = _userBL.GetPayments();
+            }
         }
     }
 }

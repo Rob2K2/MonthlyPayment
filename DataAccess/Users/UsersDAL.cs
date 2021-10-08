@@ -39,7 +39,7 @@ namespace DataAccess.Users
             }
             catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
 
             return result;
@@ -75,7 +75,7 @@ namespace DataAccess.Users
             }
             catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
 
             return usersType;
@@ -90,8 +90,9 @@ namespace DataAccess.Users
                 using (var con = DBConnection.SqlServerConexion())
                 {
                     con.Open();
-                    string query = "SELECT UserID, FirstName, LastName, Email, Salary " +
-                                   "FROM Users " +
+                    string query = "SELECT u.UserID, FirstName, LastName, Email, BasicSalary, Bonus, Discounts, (BasicSalary + Bonus - Discounts) TotalSalary " +
+                                   "FROM Users u " +
+                                   "INNER JOIN SalaryCalc s ON s.UserID = u.UserID " +
                                    "WHERE UserType = 2";
 
                     var cmd = new SqlCommand(query, con);
@@ -106,7 +107,10 @@ namespace DataAccess.Users
                                 Firstname = dr["FirstName"].ToString(),
                                 Lastname = dr["LastName"].ToString(),
                                 Email = dr["Email"].ToString(),
-                                Salary = Convert.ToInt32(dr["Salary"])
+                                BasicSalary = Convert.ToDecimal(dr["BasicSalary"]),
+                                Bonus = Convert.ToDecimal(dr["Bonus"]),
+                                Discounts = Convert.ToDecimal(dr["Discounts"]),
+                                TotalSalary = Convert.ToDecimal(dr["TotalSalary"])
                             };
                             employees.Add(user);
                         }
@@ -115,7 +119,7 @@ namespace DataAccess.Users
             }
             catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
 
             return employees;
@@ -153,10 +157,208 @@ namespace DataAccess.Users
             }
             catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
 
             return payments;
+        }
+
+        public int InsertPaymentList(DateTime paymentDate, string observations)
+        {
+            int paymentID = 0;
+
+            try
+            {
+                using (var connection = DBConnection.SqlServerConexion())
+                {
+                    connection.Open();
+                    var query = "INSERT INTO MonthlyPayment(PaymentDate, Observations) " +
+                                "VALUES(@PaymentDate, @Observations) " +
+                                "SELECT SCOPE_IDENTITY()";
+
+                    var cmd = new SqlCommand(query, connection);
+
+                    cmd.Parameters.Add("@PaymentDate", SqlDbType.Date).Value = paymentDate;
+                    cmd.Parameters.Add("@Observations", SqlDbType.VarChar).Value = observations;
+
+                    paymentID = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return paymentID;
+        }
+
+        public void InsertPaymentDetail(PaymentDetail paymentDetail)
+        {
+            try
+            {
+                using (var connection = DBConnection.SqlServerConexion())
+                {
+                    connection.Open();
+                    var query = "INSERT INTO MonthlyPaymentDetail(PaymentID, UserID, TotalSalary, Payed, Name, Lastname, Email, BasicSalary, Bonus, Discounts) " +
+                                "VALUES(@PaymentID, @UserID, @TotalSalary, @Payed, @Name, @Lastname, @Email, @BasicSalary, @Bonus, @Discounts)";
+
+                    var cmd = new SqlCommand(query, connection);
+
+                    cmd.Parameters.Add("@PaymentID", SqlDbType.Int).Value = paymentDetail.PaymentID;
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = paymentDetail.UserID;
+                    cmd.Parameters.Add("@TotalSalary", SqlDbType.Decimal).Value = paymentDetail.TotalSalary;
+                    cmd.Parameters.Add("@Payed", SqlDbType.Bit).Value = paymentDetail.IsPayed;
+                    cmd.Parameters.Add("@Name", SqlDbType.VarChar).Value = paymentDetail.Name;
+                    cmd.Parameters.Add("@Lastname", SqlDbType.VarChar).Value = paymentDetail.Lastname;
+                    cmd.Parameters.Add("@Email", SqlDbType.VarChar).Value = paymentDetail.Email;
+                    cmd.Parameters.Add("@BasicSalary", SqlDbType.Decimal).Value = paymentDetail.BasicSalary;
+                    cmd.Parameters.Add("@Bonus", SqlDbType.Decimal).Value = paymentDetail.Bonus;
+                    cmd.Parameters.Add("@Discounts", SqlDbType.Decimal).Value = paymentDetail.Discounts;
+
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public Payment GetPaymentList(int idPayment)
+        {
+            var payment = new Payment();
+
+            try
+            {
+                using (var con = DBConnection.SqlServerConexion())
+                {
+                    con.Open();
+                    string query = "SELECT PaymentID, PaymentDate, Observations " +
+                                   "FROM MonthlyPayment " +
+                                   "WHERE PaymentID=@PaymentID";
+
+                    var cmd = new SqlCommand(query, con);
+
+                    cmd.Parameters.Add("@PaymentID", SqlDbType.VarChar).Value = idPayment;
+
+                    using (var dr = cmd.ExecuteReader())
+                    {
+                        dr.Read();
+                        if (dr.HasRows)
+                        {
+                            payment.PaymentID = Convert.ToInt32(dr["PaymentID"]);
+                            payment.PaymentDate = Convert.ToDateTime(dr["PaymentDate"]);
+                            payment.Observations = dr["Observations"].ToString();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return payment;
+        }
+
+        public List<PaymentDetail> GetPaymentDetail(int idPayment)
+        {
+            var paymentsDetail = new List<PaymentDetail>();
+
+            try
+            {
+                using (var con = DBConnection.SqlServerConexion())
+                {
+                    con.Open();
+                    string query = "SELECT PaymentID, UserID, Name, LastName, Email, BasicSalary, Bonus, Discounts, (BasicSalary + Bonus - Discounts) TotalSalary, Payed " +
+                                   "FROM MonthlyPaymentDetail " +
+                                   "WHERE PaymentID = @PaymentID";
+
+                    var cmd = new SqlCommand(query, con);
+
+                    cmd.Parameters.Add("@PaymentID", SqlDbType.VarChar).Value = idPayment;
+
+                    using (var dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            var paymentDetail = new PaymentDetail
+                            {
+                                PaymentID = Convert.ToInt32(dr["PaymentID"]),
+                                UserID = Convert.ToInt32(dr["UserID"]),
+                                Name = dr["Name"].ToString(),
+                                Lastname = dr["LastName"].ToString(),
+                                Email = dr["Email"].ToString(),
+                                BasicSalary = Convert.ToDecimal(dr["BasicSalary"]),
+                                Bonus = Convert.ToDecimal(dr["Bonus"]),
+                                Discounts = Convert.ToDecimal(dr["Discounts"]),
+                                TotalSalary = Convert.ToDecimal(dr["TotalSalary"]),
+                                IsPayed = Convert.ToBoolean(dr["Payed"])
+                            };
+                            paymentsDetail.Add(paymentDetail);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return paymentsDetail;
+        }
+
+        public void UpdatePaymentList(DateTime paymentDate, string observations, int idPayment)
+        {
+            try
+            {
+                using (var connection = DBConnection.SqlServerConexion())
+                {
+                    connection.Open();
+                    var query = "UPDATE MonthlyPayment " +
+                                "SET PaymentDate = @PaymentDate, Observations = @Observations " +
+                                "WHERE PaymentID = @PaymentID";
+
+                    var cmd = new SqlCommand(query, connection);
+
+                    cmd.Parameters.Add("@PaymentDate", SqlDbType.Date).Value = paymentDate;
+                    cmd.Parameters.Add("@Observations", SqlDbType.VarChar).Value = observations;
+                    cmd.Parameters.Add("@PaymentID", SqlDbType.Int).Value = idPayment;
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        public void DeletePaymentDetail(int idPayment)
+        {
+            try
+            {
+                using (var connection = DBConnection.SqlServerConexion())
+                {
+                    connection.Open();
+
+                    var query = "DELETE FROM MonthlyPaymentDetail " +
+                                "WHERE PaymentID = @PaymentID";
+
+                    var cmd = new SqlCommand(query, connection);
+
+                    cmd.Parameters.Add("@PaymentID", SqlDbType.Int).Value = idPayment;
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
     }
 }

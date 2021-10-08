@@ -32,9 +32,6 @@ namespace MontlyPayment
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPaymentList));
             this.label1 = new System.Windows.Forms.Label();
             this.dgvPayments = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Observations = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnNewPayment = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.Button();
@@ -43,6 +40,10 @@ namespace MontlyPayment
             this.dtpToDate = new System.Windows.Forms.DateTimePicker();
             this.dtpFromDate = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
+            this.btnEdit = new System.Windows.Forms.Button();
+            this.PaymentID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PaymentDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Observations = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPayments)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,30 +59,19 @@ namespace MontlyPayment
             // 
             // dgvPayments
             // 
+            this.dgvPayments.AllowUserToAddRows = false;
+            this.dgvPayments.AllowUserToDeleteRows = false;
+            this.dgvPayments.AllowUserToResizeColumns = false;
+            this.dgvPayments.AllowUserToResizeRows = false;
             this.dgvPayments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPayments.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column4,
+            this.PaymentID,
+            this.PaymentDate,
             this.Observations});
             this.dgvPayments.Location = new System.Drawing.Point(12, 109);
             this.dgvPayments.Name = "dgvPayments";
             this.dgvPayments.Size = new System.Drawing.Size(844, 478);
             this.dgvPayments.TabIndex = 2;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "ID";
-            this.Column1.Name = "Column1";
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Payment Date";
-            this.Column4.Name = "Column4";
-            // 
-            // Observations
-            // 
-            this.Observations.HeaderText = "Observations";
-            this.Observations.Name = "Observations";
             // 
             // btnExit
             // 
@@ -113,7 +103,7 @@ namespace MontlyPayment
             // 
             this.btnPrint.Image = ((System.Drawing.Image)(resources.GetObject("btnPrint.Image")));
             this.btnPrint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPrint.Location = new System.Drawing.Point(97, 594);
+            this.btnPrint.Location = new System.Drawing.Point(178, 594);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(75, 37);
             this.btnPrint.TabIndex = 9;
@@ -165,11 +155,43 @@ namespace MontlyPayment
             this.label4.TabIndex = 18;
             this.label4.Text = "From:";
             // 
+            // btnEdit
+            // 
+            this.btnEdit.Image = ((System.Drawing.Image)(resources.GetObject("btnEdit.Image")));
+            this.btnEdit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnEdit.Location = new System.Drawing.Point(97, 594);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(75, 37);
+            this.btnEdit.TabIndex = 23;
+            this.btnEdit.Text = "Edit";
+            this.btnEdit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            // 
+            // PaymentID
+            // 
+            this.PaymentID.DataPropertyName = "PaymentID";
+            this.PaymentID.HeaderText = "ID";
+            this.PaymentID.Name = "PaymentID";
+            // 
+            // PaymentDate
+            // 
+            this.PaymentDate.DataPropertyName = "PaymentDate";
+            this.PaymentDate.HeaderText = "Payment Date";
+            this.PaymentDate.Name = "PaymentDate";
+            // 
+            // Observations
+            // 
+            this.Observations.DataPropertyName = "Observations";
+            this.Observations.HeaderText = "Observations";
+            this.Observations.Name = "Observations";
+            // 
             // frmPaymentList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(868, 643);
+            this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dtpToDate);
@@ -197,13 +219,14 @@ namespace MontlyPayment
         internal System.Windows.Forms.Button btnExit;
         internal System.Windows.Forms.Button btnNewPayment;
         internal System.Windows.Forms.Button btnPrint;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Observations;
         private System.Windows.Forms.Button txtBuscar;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dtpToDate;
         private System.Windows.Forms.DateTimePicker dtpFromDate;
         private System.Windows.Forms.Label label4;
+        internal System.Windows.Forms.Button btnEdit;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PaymentID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PaymentDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Observations;
     }
 }
