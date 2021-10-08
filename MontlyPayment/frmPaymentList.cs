@@ -57,7 +57,14 @@ namespace MontlyPayment
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-
+            if ((dgvPayments.RowCount == 0))
+            {
+                MessageBox.Show("There are no rows to print.", "JALA");
+                return;
+            }
+            idPayment = Convert.ToInt32(dgvPayments.CurrentRow.Cells["PaymentID"].Value);
+            frmReport visualizador = new frmReport(_userBL);
+            visualizador.ShowDialog();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)

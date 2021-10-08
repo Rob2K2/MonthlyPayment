@@ -240,7 +240,7 @@ namespace DataAccess.Users
 
                     var cmd = new SqlCommand(query, con);
 
-                    cmd.Parameters.Add("@PaymentID", SqlDbType.VarChar).Value = idPayment;
+                    cmd.Parameters.Add("@PaymentID", SqlDbType.Int).Value = idPayment;
 
                     using (var dr = cmd.ExecuteReader())
                     {
@@ -277,7 +277,7 @@ namespace DataAccess.Users
 
                     var cmd = new SqlCommand(query, con);
 
-                    cmd.Parameters.Add("@PaymentID", SqlDbType.VarChar).Value = idPayment;
+                    cmd.Parameters.Add("@PaymentID", SqlDbType.Int).Value = idPayment;
 
                     using (var dr = cmd.ExecuteReader())
                     {
@@ -359,6 +359,37 @@ namespace DataAccess.Users
                 throw ex;
             }
 
+        }
+
+        public DataSet RptGetPaymentList(int idPayment)
+        {
+            DataSet ds = new DataSet();
+
+            try
+            {
+                using (var con = DBConnection.SqlServerConexion())
+                {
+                    con.Open();
+                    string query = "SELECT * " +
+                                   "FROM MonthlyPayment m " +
+                                   "INNER JOIN MonthlyPaymentDetail d ON d.PaymentID = m.PaymentID " +
+                                   "WHERE m.PaymentID = @PaymentID";
+
+                    var cmd = new SqlCommand(query, con);
+
+                    cmd.Parameters.Add("@PaymentID", SqlDbType.Int).Value = idPayment;
+
+                    cmd.Prepare();
+                    var da = new SqlDataAdapter(cmd);
+                    da.Fill(ds, "rpt_GetPayment");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return ds;
         }
     }
 }

@@ -2,6 +2,7 @@
 using Entities.Users;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,6 +62,11 @@ namespace Domain.Users
         {
             _userDAL.UpdatePaymentList(paymentDate, observations, idPayment);
             _userDAL.DeletePaymentDetail(idPayment);
+        }
+
+        public DataSet RptGetPaymentList(int idPayment)
+        {
+            return _userDAL.RptGetPaymentList(idPayment);
         }
     }
 }

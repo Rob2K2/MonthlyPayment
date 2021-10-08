@@ -1,6 +1,7 @@
 ﻿using Entities.Users;
 using System;
 using System.Collections.Generic;
+using System.Data;
 
 namespace DataAccess.Users
 {
@@ -25,5 +26,7 @@ namespace DataAccess.Users
         void UpdatePaymentList(DateTime paymentDate, string observations, int idPayment);
 
         void DeletePaymentDetail(int idPayment);
+
+        DataSet RptGetPaymentList(int idPayment);
     }
 }
