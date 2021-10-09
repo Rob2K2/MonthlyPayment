@@ -1,13 +1,7 @@
-﻿using DataAccess.Users;
-using Domain.Users;
+﻿using Domain.Users;
+using Entities.Users;
+using Entities.UserType;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MontlyPayment
@@ -15,6 +9,8 @@ namespace MontlyPayment
     public partial class frmLogin : Form
     {
         private readonly IUsersBL _userBL;
+
+        public static User user;
 
         public frmLogin(IUsersBL userBL)
         {
@@ -30,29 +26,26 @@ namespace MontlyPayment
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (txtUsername.Text != "" && txtPassword.Text != "")
-            {
-                if (_userBL.Login(txtUsername.Text, txtPassword.Text, Convert.ToInt32(cboUserType.SelectedValue)))
-                {
-                    if (Convert.ToInt32(cboUserType.SelectedValue) == 1)
-                    {
-                        frmPaymentList frmEmployeeList = new frmPaymentList(_userBL);
-                        frmEmployeeList.Show();
-                        Hide();
-                    }
-                    else
-                    {
+            user = _userBL.Login(txtUsername.Text, txtPassword.Text, Convert.ToInt32(cboUserType.SelectedValue));
 
-                    }
-                }
-                else
+            if (user.UserID > 0)
+            {
+                if ((int)cboUserType.SelectedValue == (int)TypeUser.HHRR)
                 {
-                    MessageBox.Show("Username or Password incorrect");
+                    frmPaymentList frmPaymentList = new frmPaymentList(_userBL);
+                    frmPaymentList.Show();
+                    Hide();
+                }
+                else if ((int)cboUserType.SelectedValue == (int)TypeUser.Employee)
+                {
+                    frmEmployeePayments frmEmployeePayments = new frmEmployeePayments(_userBL);
+                    frmEmployeePayments.Show();
+                    Hide();
                 }
             }
             else
             {
-                MessageBox.Show("Enter all data");
+                MessageBox.Show("Username or Password incorrect");
             }
         }
 

@@ -27,5 +27,9 @@ namespace Entities.Users
         public decimal Bonus { get; set; }
 
         public decimal Discounts { get; set; }
+
+        public string PayCode { get; set; }
+
+        public DateTime PaymentDate { get; set; }
     }
 }

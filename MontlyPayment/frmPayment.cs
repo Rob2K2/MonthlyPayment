@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -52,11 +53,13 @@ namespace MontlyPayment
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            Random rnd = new Random();
+
             if (dgvEmployees.RowCount == 0)
             {
                 MessageBox.Show("List is Empty", "JALA");
             }
-                        
+
             if (idPayment == 0)
             {
                 idPayment = _userBL.InsertPaymentList(dtpPaymentDate.Value, txtObservations.Text);
@@ -68,11 +71,21 @@ namespace MontlyPayment
 
             foreach (DataGridViewRow fila in dgvEmployees.Rows)
             {
-                var paymentDetail = SetPaymentDetail(idPayment, Convert.ToInt32(fila.Cells["UserID"].Value), Convert.ToDecimal(fila.Cells["TotalSalary"].Value),
-                                            Convert.ToBoolean(fila.Cells["Payed"].Value), fila.Cells["Name"].Value.ToString(), fila.Cells["Lastname"].Value.ToString(),
-                                            fila.Cells["Email"].Value.ToString(), Convert.ToDecimal(fila.Cells["BasicSalary"].Value), Convert.ToDecimal(fila.Cells["Bonus"].Value),
-                                            Convert.ToDecimal(fila.Cells["Discounts"].Value));
-                _userBL.InsertPaymentDetail(paymentDetail);
+                var selected = Convert.ToBoolean(fila.Cells["Payed"].Value);
+                if (selected)
+                {
+                    string payCode = rnd.Next(100000000, 999999999).ToString();
+
+                    var paymentDetail = SetPaymentDetail(idPayment, Convert.ToInt32(fila.Cells["UserID"].Value), Convert.ToDecimal(fila.Cells["TotalSalary"].Value),
+                                                false, fila.Cells["Name"].Value.ToString(), fila.Cells["Lastname"].Value.ToString(),
+                                                fila.Cells["Email"].Value.ToString(), Convert.ToDecimal(fila.Cells["BasicSalary"].Value), Convert.ToDecimal(fila.Cells["Bonus"].Value),
+                                                Convert.ToDecimal(fila.Cells["Discounts"].Value), payCode);
+                    _userBL.InsertPaymentDetail(paymentDetail);
+
+                    // Create a file to write to.
+                    var filePath = Application.StartupPath + "\\Codes\\code" + paymentDetail.Name + ".txt";
+                    File.WriteAllText(filePath, payCode);
+                }
             }
 
             this.DialogResult = DialogResult.OK;
@@ -80,7 +93,7 @@ namespace MontlyPayment
         }
 
         private PaymentDetail SetPaymentDetail(int paymentID, int userID, decimal totalSalary, bool isPayed, string name, string lastname,
-                                               string email, decimal basicSalary, decimal bonus, decimal discounts)
+                                               string email, decimal basicSalary, decimal bonus, decimal discounts, string payCode)
         {
             return new PaymentDetail
             {
@@ -93,7 +106,8 @@ namespace MontlyPayment
                 Email = email,
                 BasicSalary = basicSalary,
                 Bonus = bonus,
-                Discounts = discounts
+                Discounts = discounts,
+                PayCode = payCode
             };
         }
 

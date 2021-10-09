@@ -56,11 +56,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmEmployeePendingPay.cs">
+    <Compile Include="frmEmployeePayments.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmEmployeePendingPay.Designer.cs">
-      <DependentUpon>frmEmployeePendingPay.cs</DependentUpon>
+    <Compile Include="frmEmployeePayments.Designer.cs">
+      <DependentUpon>frmEmployeePayments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmEmployeePendingPayment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEmployeePendingPayment.Designer.cs">
+      <DependentUpon>frmEmployeePendingPayment.cs</DependentUpon>
     </Compile>
     <Compile Include="frmPaymentList.cs">
       <SubType>Form</SubType>
@@ -107,8 +113,11 @@
       <SubType>Component</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <EmbeddedResource Include="frmEmployeePendingPay.resx">
-      <DependentUpon>frmEmployeePendingPay.cs</DependentUpon>
+    <EmbeddedResource Include="frmEmployeePayments.resx">
+      <DependentUpon>frmEmployeePayments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEmployeePendingPayment.resx">
+      <DependentUpon>frmEmployeePendingPayment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPaymentList.resx">
       <DependentUpon>frmPaymentList.cs</DependentUpon>
@@ -183,6 +192,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Codes\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

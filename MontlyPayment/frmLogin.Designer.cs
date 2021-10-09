@@ -57,7 +57,7 @@ namespace MontlyPayment
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(308, 26);
             this.txtUsername.TabIndex = 1;
-            this.txtUsername.Text = "rob";
+            this.txtUsername.Text = "matt";
             // 
             // txtPassword
             // 
@@ -67,7 +67,7 @@ namespace MontlyPayment
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(308, 26);
             this.txtPassword.TabIndex = 2;
-            this.txtPassword.Text = "12345";
+            this.txtPassword.Text = "654321";
             // 
             // btnLogin
             // 
@@ -124,6 +124,7 @@ namespace MontlyPayment
             // 
             // cboUserType
             // 
+            this.cboUserType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboUserType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboUserType.FormattingEnabled = true;
             this.cboUserType.Items.AddRange(new object[] {

@@ -32,6 +32,9 @@ namespace MontlyPayment
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPaymentList));
             this.label1 = new System.Windows.Forms.Label();
             this.dgvPayments = new System.Windows.Forms.DataGridView();
+            this.PaymentID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PaymentDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Observations = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnNewPayment = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.Button();
@@ -41,9 +44,6 @@ namespace MontlyPayment
             this.dtpFromDate = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
             this.btnEdit = new System.Windows.Forms.Button();
-            this.PaymentID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PaymentDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Observations = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPayments)).BeginInit();
             this.SuspendLayout();
             // 
@@ -51,11 +51,11 @@ namespace MontlyPayment
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(273, 24);
+            this.label1.Location = new System.Drawing.Point(263, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(249, 37);
+            this.label1.Size = new System.Drawing.Size(348, 37);
             this.label1.TabIndex = 1;
-            this.label1.Text = "PAYMENT LIST";
+            this.label1.Text = "HHRR PAYMENT LIST";
             // 
             // dgvPayments
             // 
@@ -72,6 +72,24 @@ namespace MontlyPayment
             this.dgvPayments.Name = "dgvPayments";
             this.dgvPayments.Size = new System.Drawing.Size(844, 478);
             this.dgvPayments.TabIndex = 2;
+            // 
+            // PaymentID
+            // 
+            this.PaymentID.DataPropertyName = "PaymentID";
+            this.PaymentID.HeaderText = "ID";
+            this.PaymentID.Name = "PaymentID";
+            // 
+            // PaymentDate
+            // 
+            this.PaymentDate.DataPropertyName = "PaymentDate";
+            this.PaymentDate.HeaderText = "Payment Date";
+            this.PaymentDate.Name = "PaymentDate";
+            // 
+            // Observations
+            // 
+            this.Observations.DataPropertyName = "Observations";
+            this.Observations.HeaderText = "Observations";
+            this.Observations.Name = "Observations";
             // 
             // btnExit
             // 
@@ -167,24 +185,6 @@ namespace MontlyPayment
             this.btnEdit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnEdit.UseVisualStyleBackColor = true;
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
-            // 
-            // PaymentID
-            // 
-            this.PaymentID.DataPropertyName = "PaymentID";
-            this.PaymentID.HeaderText = "ID";
-            this.PaymentID.Name = "PaymentID";
-            // 
-            // PaymentDate
-            // 
-            this.PaymentDate.DataPropertyName = "PaymentDate";
-            this.PaymentDate.HeaderText = "Payment Date";
-            this.PaymentDate.Name = "PaymentDate";
-            // 
-            // Observations
-            // 
-            this.Observations.DataPropertyName = "Observations";
-            this.Observations.HeaderText = "Observations";
-            this.Observations.Name = "Observations";
             // 
             // frmPaymentList
             // 

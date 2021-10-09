@@ -13,7 +13,7 @@ namespace DataAccess.Users
 
         List<UserType> GetUsersType();
 
-        bool Login(string username, string password, int userType);
+        User Login(string username, string password, int userType);
 
         int InsertPaymentList(DateTime paymentDate, string observations);
 
@@ -28,5 +28,9 @@ namespace DataAccess.Users
         void DeletePaymentDetail(int idPayment);
 
         DataSet RptGetPaymentList(int idPayment);
+
+        List<PaymentDetail> GetEmployeePayments(int idEmployee);
+
+        void UpdatePendingPayment(int userID, int paymentID);
     }
 }

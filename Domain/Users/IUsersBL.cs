@@ -13,7 +13,7 @@ namespace Domain.Users
 
         List<UserType> GetUsersType();
 
-        bool Login(string username, string password, int userType);
+        User Login(string username, string password, int userType);
 
         int InsertPaymentList(DateTime paymentDate, string observations);
 
@@ -26,5 +26,9 @@ namespace Domain.Users
         void UpdatePaymentList(DateTime paymentDate, string observations, int idPayment);
 
         DataSet RptGetPaymentList(int idPayment);
+
+        List<PaymentDetail> GetEmployeePayments(int idEmployee);
+
+        void UpdatePendingPayment(int userID, int paymentID);
     }
 }

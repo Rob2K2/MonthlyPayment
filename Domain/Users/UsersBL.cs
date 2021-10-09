@@ -18,7 +18,7 @@ namespace Domain.Users
             _userDAL = userDAL;
         }
 
-        public bool Login(string username, string password, int userType)
+        public User Login(string username, string password, int userType)
         {
             return _userDAL.Login(username, password, userType);
         }
@@ -67,6 +67,16 @@ namespace Domain.Users
         public DataSet RptGetPaymentList(int idPayment)
         {
             return _userDAL.RptGetPaymentList(idPayment);
+        }
+
+        public List<PaymentDetail> GetEmployeePayments(int idEmployee)
+        {
+            return _userDAL.GetEmployeePayments(idEmployee);
+        }
+
+        public void UpdatePendingPayment(int userID, int paymentID)
+        {
+            _userDAL.UpdatePendingPayment(userID, paymentID);
         }
     }
 }

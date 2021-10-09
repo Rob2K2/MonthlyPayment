@@ -40,7 +40,7 @@ namespace MontlyPayment
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void btnNewPayment_Click(object sender, EventArgs e)

@@ -28,10 +28,8 @@ namespace MontlyPayment
 
         private static Container Bootstrap()
         {
-            // Create the container as usual.
             var container = new Container();
 
-            // Register your types, for instance:
             container.Register<IUsersBL, UsersBL>();
             container.Register<IUsersDAL, UsersDAL>();
 

@@ -32,13 +32,8 @@ namespace MontlyPayment
 
         private void ConfigureCrystalReports()
         {
-            string reportPath;
             ReportDocument reportDocument = new ReportDocument();
-            
-            DataSet ds = new DataSet();
-            //ds.Merge(_userBL.RptGetPaymentList(idPayment));
-
-            reportPath = Application.StartupPath + "\\Reports" + "\\rptPayment.rpt";
+            var reportPath = Application.StartupPath + "\\Reports" + "\\rptPayment.rpt";
             reportDocument.Load(reportPath);
             reportDocument.SetDataSource(_userBL.RptGetPaymentList(idPayment));
             crvReport.ReportSource = reportDocument;
