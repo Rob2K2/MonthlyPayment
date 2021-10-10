@@ -1,4 +1,5 @@
-﻿using Domain.Users;
+﻿using Common.Helpers;
+using Domain.Users;
 using Entities.Users;
 using System;
 using System.IO;
@@ -9,11 +10,13 @@ namespace MontlyPayment
     public partial class frmPayment : Form
     {
         private readonly IUsersBL _userBL;
+        private readonly INumberLCD _numberLCD;
         int idPayment;
 
-        public frmPayment(IUsersBL userBL)
+        public frmPayment(IUsersBL userBL, INumberLCD numberLCD)
         {
             _userBL = userBL;
+            _numberLCD = numberLCD;
 
             InitializeComponent();
         }
@@ -66,17 +69,17 @@ namespace MontlyPayment
                 var selected = Convert.ToBoolean(fila.Cells["Payed"].Value);
                 if (selected)
                 {
-                    string payCode = rnd.Next(100000000, 999999999).ToString();
+                    var payCode = rnd.Next(100000000, 999999999);
 
                     var paymentDetail = SetPaymentDetail(idPayment, Convert.ToInt32(fila.Cells["UserID"].Value), Convert.ToDecimal(fila.Cells["TotalSalary"].Value),
                                                 false, fila.Cells["Name"].Value.ToString(), fila.Cells["Lastname"].Value.ToString(),
                                                 fila.Cells["Email"].Value.ToString(), Convert.ToDecimal(fila.Cells["BasicSalary"].Value), Convert.ToDecimal(fila.Cells["Bonus"].Value),
-                                                Convert.ToDecimal(fila.Cells["Discounts"].Value), payCode);
+                                                Convert.ToDecimal(fila.Cells["Discounts"].Value), payCode.ToString());
                     _userBL.InsertPaymentDetail(paymentDetail);
 
                     // Create a file to write to.
                     var filePath = Application.StartupPath + "\\Codes\\code" + paymentDetail.Name + ".txt";
-                    File.WriteAllText(filePath, payCode);
+                    File.WriteAllText(filePath, _numberLCD.NumberToLCD(payCode));
                 }
             }
 

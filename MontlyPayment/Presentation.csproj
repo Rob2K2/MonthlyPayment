@@ -177,6 +177,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{820158DF-FE82-4259-A330-5B51F426CEBD}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj">
       <Project>{d0c13902-2816-4135-9ade-983ed4c67f96}</Project>
       <Name>DataAccess</Name>

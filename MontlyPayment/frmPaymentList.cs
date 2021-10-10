@@ -1,4 +1,5 @@
-﻿using Domain.Users;
+﻿using Common.Helpers;
+using Domain.Users;
 using System;
 using System.Windows.Forms;
 
@@ -7,12 +8,14 @@ namespace MontlyPayment
     public partial class frmPaymentList : Form
     {
         private readonly IUsersBL _userBL;
+        private readonly INumberLCD _numberLCD;
 
         public static int idPayment;
 
-        public frmPaymentList(IUsersBL userBL)
+        public frmPaymentList(IUsersBL userBL, INumberLCD numberLCD)
         {
             _userBL = userBL;
+            _numberLCD = numberLCD;
 
             InitializeComponent();
         }
@@ -38,7 +41,7 @@ namespace MontlyPayment
         private void btnNewPayment_Click(object sender, EventArgs e)
         {
             idPayment = 0;
-            frmPayment frmEmployeeListDetails = new frmPayment(_userBL);
+            frmPayment frmEmployeeListDetails = new frmPayment(_userBL, _numberLCD);
             DialogResult res = frmEmployeeListDetails.ShowDialog();
             if (res == DialogResult.OK)
             {
@@ -68,7 +71,7 @@ namespace MontlyPayment
             }
 
             idPayment = Convert.ToInt32(dgvPayments.CurrentRow.Cells["PaymentID"].Value);
-            frmPayment frmEmployeeListDetails = new frmPayment(_userBL);
+            frmPayment frmEmployeeListDetails = new frmPayment(_userBL, _numberLCD);
             DialogResult res = frmEmployeeListDetails.ShowDialog();
             if (res == DialogResult.OK)
             {

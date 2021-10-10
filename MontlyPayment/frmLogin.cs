@@ -1,4 +1,5 @@
-﻿using Domain.Users;
+﻿using Common.Helpers;
+using Domain.Users;
 using Entities.Users;
 using Entities.UserType;
 using System;
@@ -9,12 +10,14 @@ namespace MontlyPayment
     public partial class frmLogin : Form
     {
         private readonly IUsersBL _userBL;
+        private readonly INumberLCD _numberLCD;
 
         public static User user;
 
-        public frmLogin(IUsersBL userBL)
+        public frmLogin(IUsersBL userBL, INumberLCD numberLCD)
         {
             _userBL = userBL;
+            _numberLCD = numberLCD;
 
             InitializeComponent();
         }
@@ -32,13 +35,13 @@ namespace MontlyPayment
             {
                 if ((int)cboUserType.SelectedValue == (int)TypeUser.HHRR)
                 {
-                    frmPaymentList frmPaymentList = new frmPaymentList(_userBL);
+                    frmPaymentList frmPaymentList = new frmPaymentList(_userBL, _numberLCD);
                     frmPaymentList.Show();
                     Hide();
                 }
                 else if ((int)cboUserType.SelectedValue == (int)TypeUser.Employee)
                 {
-                    frmEmployeePayments frmEmployeePayments = new frmEmployeePayments(_userBL);
+                    frmEmployeePayments frmEmployeePayments = new frmEmployeePayments(_userBL, _numberLCD);
                     frmEmployeePayments.Show();
                     Hide();
                 }

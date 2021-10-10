@@ -1,4 +1,5 @@
-﻿using Domain.Users;
+﻿using Common.Helpers;
+using Domain.Users;
 using Entities.Users;
 using System;
 using System.Windows.Forms;
@@ -8,13 +9,15 @@ namespace MontlyPayment
     public partial class frmEmployeePayments : Form
     {
         private readonly IUsersBL _userBL;
+        private readonly INumberLCD _numberLCD;
 
         public static User user;
         public static PaymentDetail employeePayment = new PaymentDetail();
 
-        public frmEmployeePayments(IUsersBL userBL)
+        public frmEmployeePayments(IUsersBL userBL, INumberLCD numberLCD)
         {
             _userBL = userBL;
+            _numberLCD = numberLCD;
 
             InitializeComponent();
         }
@@ -55,7 +58,7 @@ namespace MontlyPayment
                 employeePayment.PayCode = dgvEmployeePayments.CurrentRow.Cells["PayCode"].Value.ToString();
                 employeePayment.PaymentID = Convert.ToInt32(dgvEmployeePayments.CurrentRow.Cells["PaymentID"].Value);
                 employeePayment.TotalSalary = Convert.ToDecimal(dgvEmployeePayments.CurrentRow.Cells["TotalSalary"].Value);
-                frmEmployeePendingPayment frmEmployeePendingPayment = new frmEmployeePendingPayment(_userBL);
+                frmEmployeePendingPayment frmEmployeePendingPayment = new frmEmployeePendingPayment(_userBL, _numberLCD);
                 DialogResult res = frmEmployeePendingPayment.ShowDialog();
                 if (res == DialogResult.OK)
                 {
