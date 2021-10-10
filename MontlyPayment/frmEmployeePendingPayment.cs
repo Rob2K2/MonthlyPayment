@@ -35,12 +35,14 @@ namespace MontlyPayment
 
         private void btnClaim_Click(object sender, EventArgs e)
         {
+
+
             if (PaymentCode == txtEmployeeCode.Text)
             {
                 _userBL.UpdatePendingPayment(IdUser, IdPayment);
 
-                this.DialogResult = DialogResult.OK;
-                this.Close();
+                DialogResult = DialogResult.OK;
+                Close();
             }
             else
             {
