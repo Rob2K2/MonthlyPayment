@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Common.Helpers
@@ -26,28 +27,25 @@ namespace Common.Helpers
             return result.ToString();
         }
 
-        //public string[] NumberToArray(int number)
-        //{
-        //    var result = new LCD(new[] { "", "", "" });
-        //    foreach (var digito in number.ToString())
-        //    {
-        //        result = merge(result, LCD.Digits[digito]);
-        //    }
-        //    return result;
-        //}
-
         public string LCDtoNumber(string[] code)
         {
             string lcdCode = string.Empty;
 
-            for (int j = 0; j < code[0].Length; j += 3)
+            try
             {
-                var top = code[0].Substring(j, 3);
-                var mid = code[1].Substring(j, 3);
-                var bot = code[2].Substring(j, 3);
+                for (int j = 0; j < code[0].Length; j += 3)
+                {
+                    var top = code[0].Substring(j, 3);
+                    var mid = code[1].Substring(j, 3);
+                    var bot = code[2].Substring(j, 3);
 
-                var lcdKey = LCD.Digits.FirstOrDefault(x => x.Value.Rows.SequenceEqual(new LCD(new string[] { top, mid, bot }).Rows)).Key;
-                lcdCode += lcdKey;
+                    var lcdKey = LCD.Digits.FirstOrDefault(x => x.Value.Rows.SequenceEqual(new LCD(new string[] { top, mid, bot }).Rows)).Key;
+                    lcdCode += lcdKey;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new FormatException("Code format incorrect");
             }
 
             return lcdCode;

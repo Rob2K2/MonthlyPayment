@@ -39,17 +39,31 @@ namespace MontlyPayment
 
         private void btnClaim_Click(object sender, EventArgs e)
         {
-            var arrayCode = txtEmployeeCode.Text.Split('\n');
-            var enteredCode = _numberLCD.LCDtoNumber(arrayCode);
-
-            if (PaymentCode == enteredCode)
+            if (string.IsNullOrEmpty(txtEmployeeCode.Text))
             {
-                _userBL.UpdatePendingPayment(IdUser, IdPayment);
+                MessageBox.Show("Enter a code.");
 
-                DialogResult = DialogResult.OK;
-                Close();
+                return;
             }
-            else
+
+            try
+            {
+                var arrayCode = txtEmployeeCode.Text.Split('\n');
+                var enteredCode = _numberLCD.LCDtoNumber(arrayCode);
+
+                if (PaymentCode == enteredCode)
+                {
+                    _userBL.UpdatePendingPayment(IdUser, IdPayment);
+
+                    DialogResult = DialogResult.OK;
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("The code you have entered is not correct.");
+                }
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("The code you have entered is not correct.");
             }

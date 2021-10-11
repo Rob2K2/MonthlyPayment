@@ -70,6 +70,8 @@ namespace MontlyPayment
             this.Observations});
             this.dgvPayments.Location = new System.Drawing.Point(12, 109);
             this.dgvPayments.Name = "dgvPayments";
+            this.dgvPayments.ReadOnly = true;
+            this.dgvPayments.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvPayments.Size = new System.Drawing.Size(844, 478);
             this.dgvPayments.TabIndex = 2;
             // 
@@ -78,18 +80,21 @@ namespace MontlyPayment
             this.PaymentID.DataPropertyName = "PaymentID";
             this.PaymentID.HeaderText = "ID";
             this.PaymentID.Name = "PaymentID";
+            this.PaymentID.ReadOnly = true;
             // 
             // PaymentDate
             // 
             this.PaymentDate.DataPropertyName = "PaymentDate";
             this.PaymentDate.HeaderText = "Payment Date";
             this.PaymentDate.Name = "PaymentDate";
+            this.PaymentDate.ReadOnly = true;
             // 
             // Observations
             // 
             this.Observations.DataPropertyName = "Observations";
             this.Observations.HeaderText = "Observations";
             this.Observations.Name = "Observations";
+            this.Observations.ReadOnly = true;
             // 
             // btnExit
             // 
