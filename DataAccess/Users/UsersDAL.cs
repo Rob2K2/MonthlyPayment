@@ -201,8 +201,8 @@ namespace DataAccess.Users
                 using (var connection = DBConnection.SqlServerConexion())
                 {
                     connection.Open();
-                    var query = "INSERT INTO MonthlyPaymentDetail(PaymentID, UserID, TotalSalary, Payed, Name, Lastname, Email, BasicSalary, Bonus, Discounts, PayCode) " +
-                                "VALUES(@PaymentID, @UserID, @TotalSalary, @Payed, @Name, @Lastname, @Email, @BasicSalary, @Bonus, @Discounts, @PayCode)";
+                    var query = "INSERT INTO MonthlyPaymentDetail(PaymentID, UserID, TotalSalary, Payed, Name, Lastname, Email, BasicSalary, Bonus, Discounts, PayCode, topCode, midCode, botCode) " +
+                                "VALUES(@PaymentID, @UserID, @TotalSalary, @Payed, @Name, @Lastname, @Email, @BasicSalary, @Bonus, @Discounts, @PayCode, @topCode, @midCode, @botCode)";
 
                     var cmd = new SqlCommand(query, connection);
 
@@ -217,6 +217,9 @@ namespace DataAccess.Users
                     cmd.Parameters.Add("@Bonus", SqlDbType.Decimal).Value = paymentDetail.Bonus;
                     cmd.Parameters.Add("@Discounts", SqlDbType.Decimal).Value = paymentDetail.Discounts;
                     cmd.Parameters.Add("@PayCode", SqlDbType.VarChar).Value = paymentDetail.PayCode;
+                    cmd.Parameters.Add("@topCode", SqlDbType.VarChar).Value = paymentDetail.TopCode;
+                    cmd.Parameters.Add("@midCode", SqlDbType.VarChar).Value = paymentDetail.MidCode;
+                    cmd.Parameters.Add("@botCode", SqlDbType.VarChar).Value = paymentDetail.BotCode;
 
                     cmd.ExecuteNonQuery();
                 }
@@ -464,6 +467,38 @@ namespace DataAccess.Users
                 throw ex;
             }
 
+        }
+
+        public DataSet RptGetRecipe(int userID, int idPayment)
+        {
+            DataSet ds = new DataSet();
+
+            try
+            {
+                using (var con = DBConnection.SqlServerConexion())
+                {
+                    con.Open();
+                    string query = "SELECT mp.PaymentDate, mpd.Name, mpd.Lastname, (BasicSalary + Bonus - Discounts) TotalSalary, Paycode, mp.PaymentID, mpd.UserID, topCode, midCode, botCode " +
+                                   "FROM MonthlyPaymentDetail mpd " +
+                                   "INNER JOIN MonthlyPayment mp ON mp.PaymentID = mpd.PaymentID " +
+                                   "WHERE UserID = @UserID AND mp.PaymentID = @PaymentID";
+
+                    var cmd = new SqlCommand(query, con);
+
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
+                    cmd.Parameters.Add("@PaymentID", SqlDbType.Int).Value = idPayment;
+
+                    cmd.Prepare();
+                    var da = new SqlDataAdapter(cmd);
+                    da.Fill(ds, "rpt_GetRecipe");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return ds;
         }
     }
 }

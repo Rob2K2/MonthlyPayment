@@ -70,15 +70,16 @@ namespace MontlyPayment
                 if (selected)
                 {
                     var payCode = rnd.Next(100000000, 999999999);
+                    var arrayCode = _numberLCD.NumberToLCD(payCode).Split('\n');
 
                     var paymentDetail = SetPaymentDetail(idPayment, Convert.ToInt32(fila.Cells["UserID"].Value), Convert.ToDecimal(fila.Cells["TotalSalary"].Value),
                                                 false, fila.Cells["Name"].Value.ToString(), fila.Cells["Lastname"].Value.ToString(),
                                                 fila.Cells["Email"].Value.ToString(), Convert.ToDecimal(fila.Cells["BasicSalary"].Value), Convert.ToDecimal(fila.Cells["Bonus"].Value),
-                                                Convert.ToDecimal(fila.Cells["Discounts"].Value), payCode.ToString());
+                                                Convert.ToDecimal(fila.Cells["Discounts"].Value), payCode.ToString(), arrayCode);
                     _userBL.InsertPaymentDetail(paymentDetail);
 
                     // Create a file to write to.
-                    var filePath = Application.StartupPath + "\\Codes\\code" + paymentDetail.Name + ".txt";
+                    var filePath = Application.StartupPath + "\\Codes\\code" + paymentDetail.Name + dtpPaymentDate.Value.Month + dtpPaymentDate.Value.Year + ".txt";
                     File.WriteAllText(filePath, _numberLCD.NumberToLCD(payCode));
                 }
             }
@@ -88,7 +89,7 @@ namespace MontlyPayment
         }
 
         private PaymentDetail SetPaymentDetail(int paymentID, int userID, decimal totalSalary, bool isPayed, string name, string lastname,
-                                               string email, decimal basicSalary, decimal bonus, decimal discounts, string payCode)
+                                               string email, decimal basicSalary, decimal bonus, decimal discounts, string payCode, string[] arrayCode)
         {
             return new PaymentDetail
             {
@@ -102,7 +103,10 @@ namespace MontlyPayment
                 BasicSalary = basicSalary,
                 Bonus = bonus,
                 Discounts = discounts,
-                PayCode = payCode
+                PayCode = payCode,
+                TopCode = arrayCode[0],
+                MidCode = arrayCode[1],
+                BotCode = arrayCode[2]
             };
         }
 

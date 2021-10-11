@@ -34,6 +34,7 @@ namespace MontlyPayment
             IdUser = frmEmployeePayments.user.UserID;
 
             lblSalary.Text = frmEmployeePayments.employeePayment.TotalSalary.ToString();
+            lblMonth.Text = frmEmployeePayments.employeePayment.PaymentDate.ToShortDateString();
         }
 
         private void btnClaim_Click(object sender, EventArgs e)

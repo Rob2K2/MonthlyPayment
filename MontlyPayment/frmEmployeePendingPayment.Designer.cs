@@ -37,6 +37,8 @@ namespace MontlyPayment
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lblSalary = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblMonth = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -51,6 +53,7 @@ namespace MontlyPayment
             // 
             // txtEmployeeCode
             // 
+            this.txtEmployeeCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmployeeCode.Location = new System.Drawing.Point(12, 107);
             this.txtEmployeeCode.Multiline = true;
             this.txtEmployeeCode.Name = "txtEmployeeCode";
@@ -98,7 +101,7 @@ namespace MontlyPayment
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(432, 82);
+            this.label3.Location = new System.Drawing.Point(311, 82);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(72, 13);
             this.label3.TabIndex = 14;
@@ -108,17 +111,38 @@ namespace MontlyPayment
             // 
             this.lblSalary.AutoSize = true;
             this.lblSalary.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSalary.Location = new System.Drawing.Point(510, 78);
+            this.lblSalary.Location = new System.Drawing.Point(389, 80);
             this.lblSalary.Name = "lblSalary";
             this.lblSalary.Size = new System.Drawing.Size(89, 17);
             this.lblSalary.TabIndex = 15;
             this.lblSalary.Text = "total salary";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(537, 82);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(40, 13);
+            this.label4.TabIndex = 16;
+            this.label4.Text = "Month:";
+            // 
+            // lblMonth
+            // 
+            this.lblMonth.AutoSize = true;
+            this.lblMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMonth.Location = new System.Drawing.Point(583, 78);
+            this.lblMonth.Name = "lblMonth";
+            this.lblMonth.Size = new System.Drawing.Size(52, 17);
+            this.lblMonth.TabIndex = 17;
+            this.lblMonth.Text = "month";
             // 
             // frmEmployeePendingPayment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(718, 332);
+            this.Controls.Add(this.lblMonth);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.lblSalary);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -143,5 +167,7 @@ namespace MontlyPayment
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblSalary;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblMonth;
     }
 }

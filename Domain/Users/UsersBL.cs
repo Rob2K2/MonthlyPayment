@@ -78,5 +78,10 @@ namespace Domain.Users
         {
             _userDAL.UpdatePendingPayment(userID, paymentID);
         }
+
+        public DataSet RptGetRecipe(int userID, int idPayment)
+        {
+            return _userDAL.RptGetRecipe(userID, idPayment);
+        }
     }
 }

@@ -27,5 +27,11 @@ namespace Entities.Users
         public string PayCode { get; set; }
 
         public DateTime PaymentDate { get; set; }
+
+        public string TopCode { get; set; }
+
+        public string MidCode { get; set; }
+
+        public string BotCode { get; set; }
     }
 }

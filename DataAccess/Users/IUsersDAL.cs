@@ -32,5 +32,7 @@ namespace DataAccess.Users
         List<PaymentDetail> GetEmployeePayments(int idEmployee);
 
         void UpdatePendingPayment(int userID, int paymentID);
+
+        DataSet RptGetRecipe(int userID, int idPayment);
     }
 }

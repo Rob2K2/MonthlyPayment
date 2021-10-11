@@ -8,7 +8,7 @@ namespace Common.Helpers
 {
     public class LCD
     {
-        public string[] Filas { get; set; }
+        public string[] Rows { get; set; }
 
         public static readonly Dictionary<int, string> Leds =
             new Dictionary<int, string>
@@ -22,7 +22,7 @@ namespace Common.Helpers
                    {7, "  |"},
                };
 
-        public static readonly Dictionary<char, LCD> Digitos =
+        public static readonly Dictionary<char, LCD> Digits =
             new Dictionary<char, LCD>
                {
                    {'0', new LCD(1, 2, 3)},
@@ -42,14 +42,14 @@ namespace Common.Helpers
             this(new[] { Leds[top], Leds[mid], Leds[bot] })
         { }
 
-        public LCD(string[] filas)
+        public LCD(string[] rows)
         {
-            this.Filas = filas;
+            Rows = rows;
         }
 
         public override string ToString()
         {
-            var s = string.Join("\n", Filas);
+            var s = string.Join("\n", Rows);
             return s;
         }
     }
