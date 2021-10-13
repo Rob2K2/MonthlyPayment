@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Common.Helpers
@@ -24,6 +23,7 @@ namespace Common.Helpers
             {
                 result = merge(result, LCD.Digits[digito]);
             }
+
             return result.ToString();
         }
 

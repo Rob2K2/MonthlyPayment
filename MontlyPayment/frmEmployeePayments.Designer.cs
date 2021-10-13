@@ -90,13 +90,13 @@ namespace MontlyPayment
             // 
             // btnEarn
             // 
+            this.btnEarn.Image = ((System.Drawing.Image)(resources.GetObject("btnEarn.Image")));
             this.btnEarn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnEarn.Location = new System.Drawing.Point(14, 527);
             this.btnEarn.Name = "btnEarn";
             this.btnEarn.Size = new System.Drawing.Size(75, 37);
             this.btnEarn.TabIndex = 27;
             this.btnEarn.Text = "Get Paid";
-            this.btnEarn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnEarn.UseVisualStyleBackColor = true;
             this.btnEarn.Click += new System.EventHandler(this.btnEarn_Click);
             // 
@@ -264,6 +264,7 @@ namespace MontlyPayment
             this.PayCode.HeaderText = "PayCode";
             this.PayCode.Name = "PayCode";
             this.PayCode.ReadOnly = true;
+            this.PayCode.Visible = false;
             // 
             // frmEmployeePayments
             // 

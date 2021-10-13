@@ -59,7 +59,7 @@ namespace MontlyPayment
             this.txtEmployeeCode.Name = "txtEmployeeCode";
             this.txtEmployeeCode.Size = new System.Drawing.Size(694, 177);
             this.txtEmployeeCode.TabIndex = 4;
-            this.txtEmployeeCode.Text = "123456789";
+            this.txtEmployeeCode.Text = "Enter code here";
             // 
             // btnCancel
             // 
