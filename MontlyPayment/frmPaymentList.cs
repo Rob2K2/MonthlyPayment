@@ -22,10 +22,9 @@ namespace MontlyPayment
 
         private void frmEmployeeList_Load(object sender, EventArgs e)
         {
+            monthlyPaymentTableAdapter.Fill(monthlyPaymentDataSet.MonthlyPayment);
             dtpToDate.Value = DateTime.Today;
             dtpFromDate.Value = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
-            dgvPayments.AutoGenerateColumns = false;
-            dgvPayments.DataSource = _userBL.GetPayments();
         }
 
         private void frmEmployeeList_FormClosed(object sender, FormClosedEventArgs e)
@@ -46,7 +45,7 @@ namespace MontlyPayment
             if (res == DialogResult.OK)
             {
                 MessageBox.Show("Payment Saved Successfully");
-                dgvPayments.DataSource = _userBL.GetPayments();
+                monthlyPaymentTableAdapter.Fill(monthlyPaymentDataSet.MonthlyPayment);
             }
         }
 
@@ -78,6 +77,26 @@ namespace MontlyPayment
                 MessageBox.Show("Edited successfully");
                 dgvPayments.DataSource = _userBL.GetPayments();
             }
+        }
+
+        private void btnFirst_Click(object sender, EventArgs e)
+        {
+            bsPaymentList.MoveFirst();
+        }
+
+        private void btnPrev_Click(object sender, EventArgs e)
+        {
+            bsPaymentList.MovePrevious();
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            bsPaymentList.MoveNext();
+        }
+
+        private void btnLast_Click(object sender, EventArgs e)
+        {
+            bsPaymentList.MoveLast();
         }
     }
 }

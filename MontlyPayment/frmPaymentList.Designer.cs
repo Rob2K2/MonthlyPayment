@@ -29,12 +29,9 @@ namespace MontlyPayment
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPaymentList));
             this.label1 = new System.Windows.Forms.Label();
-            this.dgvPayments = new System.Windows.Forms.DataGridView();
-            this.PaymentID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PaymentDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Observations = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnNewPayment = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.Button();
@@ -44,6 +41,19 @@ namespace MontlyPayment
             this.dtpFromDate = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
             this.btnEdit = new System.Windows.Forms.Button();
+            this.bsPaymentList = new System.Windows.Forms.BindingSource(this.components);
+            this.monthlyPaymentDataSet = new MontlyPayment.MonthlyPaymentDataSet();
+            this.monthlyPaymentTableAdapter = new MontlyPayment.MonthlyPaymentDataSetTableAdapters.MonthlyPaymentTableAdapter();
+            this.btnLast = new System.Windows.Forms.Button();
+            this.btnPrev = new System.Windows.Forms.Button();
+            this.btnNext = new System.Windows.Forms.Button();
+            this.btnFirst = new System.Windows.Forms.Button();
+            this.dgvPayments = new System.Windows.Forms.DataGridView();
+            this.PaymentID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PaymentDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Observations = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.bsPaymentList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.monthlyPaymentDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPayments)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,45 +66,6 @@ namespace MontlyPayment
             this.label1.Size = new System.Drawing.Size(348, 37);
             this.label1.TabIndex = 1;
             this.label1.Text = "HHRR PAYMENT LIST";
-            // 
-            // dgvPayments
-            // 
-            this.dgvPayments.AllowUserToAddRows = false;
-            this.dgvPayments.AllowUserToDeleteRows = false;
-            this.dgvPayments.AllowUserToResizeColumns = false;
-            this.dgvPayments.AllowUserToResizeRows = false;
-            this.dgvPayments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPayments.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.PaymentID,
-            this.PaymentDate,
-            this.Observations});
-            this.dgvPayments.Location = new System.Drawing.Point(12, 109);
-            this.dgvPayments.Name = "dgvPayments";
-            this.dgvPayments.ReadOnly = true;
-            this.dgvPayments.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvPayments.Size = new System.Drawing.Size(844, 478);
-            this.dgvPayments.TabIndex = 2;
-            // 
-            // PaymentID
-            // 
-            this.PaymentID.DataPropertyName = "PaymentID";
-            this.PaymentID.HeaderText = "ID";
-            this.PaymentID.Name = "PaymentID";
-            this.PaymentID.ReadOnly = true;
-            // 
-            // PaymentDate
-            // 
-            this.PaymentDate.DataPropertyName = "PaymentDate";
-            this.PaymentDate.HeaderText = "Payment Date";
-            this.PaymentDate.Name = "PaymentDate";
-            this.PaymentDate.ReadOnly = true;
-            // 
-            // Observations
-            // 
-            this.Observations.DataPropertyName = "Observations";
-            this.Observations.HeaderText = "Observations";
-            this.Observations.Name = "Observations";
-            this.Observations.ReadOnly = true;
             // 
             // btnExit
             // 
@@ -192,11 +163,111 @@ namespace MontlyPayment
             this.btnEdit.UseVisualStyleBackColor = true;
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
+            // bsPaymentList
+            // 
+            this.bsPaymentList.DataMember = "MonthlyPayment";
+            this.bsPaymentList.DataSource = this.monthlyPaymentDataSet;
+            // 
+            // monthlyPaymentDataSet
+            // 
+            this.monthlyPaymentDataSet.DataSetName = "MonthlyPaymentDataSet";
+            this.monthlyPaymentDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // monthlyPaymentTableAdapter
+            // 
+            this.monthlyPaymentTableAdapter.ClearBeforeFill = true;
+            // 
+            // btnLast
+            // 
+            this.btnLast.Location = new System.Drawing.Point(591, 601);
+            this.btnLast.Name = "btnLast";
+            this.btnLast.Size = new System.Drawing.Size(45, 23);
+            this.btnLast.TabIndex = 24;
+            this.btnLast.Text = ">|";
+            this.btnLast.UseVisualStyleBackColor = true;
+            this.btnLast.Click += new System.EventHandler(this.btnLast_Click);
+            // 
+            // btnPrev
+            // 
+            this.btnPrev.Location = new System.Drawing.Point(429, 601);
+            this.btnPrev.Name = "btnPrev";
+            this.btnPrev.Size = new System.Drawing.Size(45, 23);
+            this.btnPrev.TabIndex = 25;
+            this.btnPrev.Text = "<<";
+            this.btnPrev.UseVisualStyleBackColor = true;
+            this.btnPrev.Click += new System.EventHandler(this.btnPrev_Click);
+            // 
+            // btnNext
+            // 
+            this.btnNext.Location = new System.Drawing.Point(540, 601);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(45, 23);
+            this.btnNext.TabIndex = 26;
+            this.btnNext.Text = ">>";
+            this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
+            // btnFirst
+            // 
+            this.btnFirst.Location = new System.Drawing.Point(378, 601);
+            this.btnFirst.Name = "btnFirst";
+            this.btnFirst.Size = new System.Drawing.Size(45, 23);
+            this.btnFirst.TabIndex = 27;
+            this.btnFirst.Text = "|<";
+            this.btnFirst.UseVisualStyleBackColor = true;
+            this.btnFirst.Click += new System.EventHandler(this.btnFirst_Click);
+            // 
+            // dgvPayments
+            // 
+            this.dgvPayments.AllowUserToAddRows = false;
+            this.dgvPayments.AllowUserToDeleteRows = false;
+            this.dgvPayments.AllowUserToResizeColumns = false;
+            this.dgvPayments.AllowUserToResizeRows = false;
+            this.dgvPayments.AutoGenerateColumns = false;
+            this.dgvPayments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPayments.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.PaymentID,
+            this.PaymentDate,
+            this.Observations});
+            this.dgvPayments.DataSource = this.bsPaymentList;
+            this.dgvPayments.Location = new System.Drawing.Point(12, 95);
+            this.dgvPayments.Name = "dgvPayments";
+            this.dgvPayments.ReadOnly = true;
+            this.dgvPayments.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvPayments.Size = new System.Drawing.Size(844, 493);
+            this.dgvPayments.TabIndex = 28;
+            // 
+            // PaymentID
+            // 
+            this.PaymentID.DataPropertyName = "PaymentID";
+            this.PaymentID.HeaderText = "ID";
+            this.PaymentID.Name = "PaymentID";
+            this.PaymentID.ReadOnly = true;
+            // 
+            // PaymentDate
+            // 
+            this.PaymentDate.DataPropertyName = "PaymentDate";
+            this.PaymentDate.HeaderText = "Date";
+            this.PaymentDate.Name = "PaymentDate";
+            this.PaymentDate.ReadOnly = true;
+            // 
+            // Observations
+            // 
+            this.Observations.DataPropertyName = "Observations";
+            this.Observations.HeaderText = "Observations";
+            this.Observations.Name = "Observations";
+            this.Observations.ReadOnly = true;
+            // 
             // frmPaymentList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(868, 643);
+            this.Controls.Add(this.dgvPayments);
+            this.Controls.Add(this.btnFirst);
+            this.Controls.Add(this.btnNext);
+            this.Controls.Add(this.btnPrev);
+            this.Controls.Add(this.btnLast);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.label2);
@@ -206,12 +277,13 @@ namespace MontlyPayment
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.btnNewPayment);
             this.Controls.Add(this.btnExit);
-            this.Controls.Add(this.dgvPayments);
             this.Controls.Add(this.label1);
             this.Name = "frmPaymentList";
             this.Text = "HHRR - PaymentList";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmEmployeeList_FormClosed);
             this.Load += new System.EventHandler(this.frmEmployeeList_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.bsPaymentList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.monthlyPaymentDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPayments)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -221,7 +293,6 @@ namespace MontlyPayment
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dgvPayments;
         internal System.Windows.Forms.Button btnExit;
         internal System.Windows.Forms.Button btnNewPayment;
         internal System.Windows.Forms.Button btnPrint;
@@ -231,6 +302,14 @@ namespace MontlyPayment
         private System.Windows.Forms.DateTimePicker dtpFromDate;
         private System.Windows.Forms.Label label4;
         internal System.Windows.Forms.Button btnEdit;
+        private System.Windows.Forms.BindingSource bsPaymentList;
+        private MonthlyPaymentDataSet monthlyPaymentDataSet;
+        private MonthlyPaymentDataSetTableAdapters.MonthlyPaymentTableAdapter monthlyPaymentTableAdapter;
+        private System.Windows.Forms.Button btnLast;
+        private System.Windows.Forms.Button btnPrev;
+        private System.Windows.Forms.Button btnNext;
+        private System.Windows.Forms.Button btnFirst;
+        private System.Windows.Forms.DataGridView dgvPayments;
         private System.Windows.Forms.DataGridViewTextBoxColumn PaymentID;
         private System.Windows.Forms.DataGridViewTextBoxColumn PaymentDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn Observations;
