@@ -24,7 +24,7 @@ namespace MontlyPayment
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            Close();
+            Application.Exit();
         }
 
         private void frmEmployeePayments_Load(object sender, EventArgs e)
@@ -60,11 +60,6 @@ namespace MontlyPayment
                     break;
                 }
             }
-        }
-
-        private void frmEmployeePayments_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Application.Exit();
         }
 
         private void btnEarn_Click(object sender, EventArgs e)
@@ -115,6 +110,11 @@ namespace MontlyPayment
             {
                 MessageBox.Show("You have to claim the payment before you print it.", "JALA");
             }
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

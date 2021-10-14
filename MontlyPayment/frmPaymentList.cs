@@ -26,15 +26,10 @@ namespace MontlyPayment
             dtpToDate.Value = DateTime.Today;
             dtpFromDate.Value = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
         }
-
-        private void frmEmployeeList_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Application.Exit();
-        }
-
+    
         private void btnSalir_Click(object sender, EventArgs e)
         {
-            Close();
+            Application.Exit();
         }
 
         private void btnNewPayment_Click(object sender, EventArgs e)
@@ -97,6 +92,11 @@ namespace MontlyPayment
         private void btnLast_Click(object sender, EventArgs e)
         {
             bsPaymentList.MoveLast();
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

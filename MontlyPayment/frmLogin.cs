@@ -37,12 +37,14 @@ namespace MontlyPayment
                 {
                     frmPaymentList frmPaymentList = new frmPaymentList(_userBL, _numberLCD);
                     frmPaymentList.Show();
+                    frmPaymentList.FormClosed += Logout;
                     Hide();
                 }
                 else if ((int)cboUserType.SelectedValue == (int)TypeUser.Employee)
                 {
                     frmEmployeePayments frmEmployeePayments = new frmEmployeePayments(_userBL, _numberLCD);
                     frmEmployeePayments.Show();
+                    frmEmployeePayments.FormClosed += Logout;
                     Hide();
                 }
             }
@@ -62,6 +64,15 @@ namespace MontlyPayment
             cboUserType.DataSource = _userBL.GetUsersType();
             cboUserType.ValueMember = "UserTypeID";
             cboUserType.DisplayMember = "Type";
+        }
+
+        private void Logout(object sender, FormClosedEventArgs e)
+        {
+            txtUsername.Clear();
+            txtPassword.Clear();
+
+            Show();
+            txtUsername.Focus();
         }
     }
 }

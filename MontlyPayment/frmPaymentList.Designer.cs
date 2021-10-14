@@ -52,6 +52,7 @@ namespace MontlyPayment
             this.PaymentID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PaymentDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Observations = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnLogout = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.bsPaymentList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.monthlyPaymentDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPayments)).BeginInit();
@@ -258,11 +259,22 @@ namespace MontlyPayment
             this.Observations.Name = "Observations";
             this.Observations.ReadOnly = true;
             // 
+            // btnLogout
+            // 
+            this.btnLogout.Location = new System.Drawing.Point(781, 12);
+            this.btnLogout.Name = "btnLogout";
+            this.btnLogout.Size = new System.Drawing.Size(75, 23);
+            this.btnLogout.TabIndex = 29;
+            this.btnLogout.Text = "Log out";
+            this.btnLogout.UseVisualStyleBackColor = true;
+            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
+            // 
             // frmPaymentList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(868, 643);
+            this.Controls.Add(this.btnLogout);
             this.Controls.Add(this.dgvPayments);
             this.Controls.Add(this.btnFirst);
             this.Controls.Add(this.btnNext);
@@ -280,7 +292,6 @@ namespace MontlyPayment
             this.Controls.Add(this.label1);
             this.Name = "frmPaymentList";
             this.Text = "HHRR - PaymentList";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmEmployeeList_FormClosed);
             this.Load += new System.EventHandler(this.frmEmployeeList_Load);
             ((System.ComponentModel.ISupportInitialize)(this.bsPaymentList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.monthlyPaymentDataSet)).EndInit();
@@ -313,5 +324,6 @@ namespace MontlyPayment
         private System.Windows.Forms.DataGridViewTextBoxColumn PaymentID;
         private System.Windows.Forms.DataGridViewTextBoxColumn PaymentDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn Observations;
+        private System.Windows.Forms.Button btnLogout;
     }
 }

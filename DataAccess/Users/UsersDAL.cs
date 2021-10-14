@@ -201,8 +201,8 @@ namespace DataAccess.Users
                 using (var connection = DBConnection.SqlServerConexion())
                 {
                     connection.Open();
-                    var query = "INSERT INTO MonthlyPaymentDetail(PaymentID, UserID, TotalSalary, Payed, Name, Lastname, Email, BasicSalary, Bonus, Discounts, PayCode, topCode, midCode, botCode) " +
-                                "VALUES(@PaymentID, @UserID, @TotalSalary, @Payed, @Name, @Lastname, @Email, @BasicSalary, @Bonus, @Discounts, @PayCode, @topCode, @midCode, @botCode)";
+                    var query = "INSERT INTO MonthlyPaymentDetail(PaymentID, UserID, TotalSalary, Payed, PayCode, topCode, midCode, botCode) " +
+                                "VALUES(@PaymentID, @UserID, @TotalSalary, @Payed, @PayCode, @topCode, @midCode, @botCode)";
 
                     var cmd = new SqlCommand(query, connection);
 
@@ -210,12 +210,6 @@ namespace DataAccess.Users
                     cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = paymentDetail.UserID;
                     cmd.Parameters.Add("@TotalSalary", SqlDbType.Decimal).Value = paymentDetail.TotalSalary;
                     cmd.Parameters.Add("@Payed", SqlDbType.Bit).Value = paymentDetail.IsPayed;
-                    cmd.Parameters.Add("@Name", SqlDbType.VarChar).Value = paymentDetail.Name;
-                    cmd.Parameters.Add("@Lastname", SqlDbType.VarChar).Value = paymentDetail.Lastname;
-                    cmd.Parameters.Add("@Email", SqlDbType.VarChar).Value = paymentDetail.Email;
-                    cmd.Parameters.Add("@BasicSalary", SqlDbType.Decimal).Value = paymentDetail.BasicSalary;
-                    cmd.Parameters.Add("@Bonus", SqlDbType.Decimal).Value = paymentDetail.Bonus;
-                    cmd.Parameters.Add("@Discounts", SqlDbType.Decimal).Value = paymentDetail.Discounts;
                     cmd.Parameters.Add("@PayCode", SqlDbType.VarChar).Value = paymentDetail.PayCode;
                     cmd.Parameters.Add("@topCode", SqlDbType.VarChar).Value = paymentDetail.TopCode;
                     cmd.Parameters.Add("@midCode", SqlDbType.VarChar).Value = paymentDetail.MidCode;
@@ -276,8 +270,10 @@ namespace DataAccess.Users
                 using (var con = DBConnection.SqlServerConexion())
                 {
                     con.Open();
-                    string query = "SELECT PaymentID, UserID, Name, LastName, Email, BasicSalary, Bonus, Discounts, (BasicSalary + Bonus - Discounts) TotalSalary, Payed " +
-                                   "FROM MonthlyPaymentDetail " +
+                    string query = "SELECT PaymentID, u.UserID, u.FirstName Name, u.LastName, u.Email, sc.BasicSalary, sc.Bonus, sc.Discounts, (sc.BasicSalary + sc.Bonus - sc.Discounts) TotalSalary, Payed " +
+                                   "FROM MonthlyPaymentDetail mpd " +
+                                   "INNER JOIN Users u ON u.UserID = mpd.UserID " +
+                                   "INNER JOIN SalaryCalc sc ON sc.UserID = u.UserID " +
                                    "WHERE PaymentID = @PaymentID";
 
                     var cmd = new SqlCommand(query, con);
@@ -375,10 +371,12 @@ namespace DataAccess.Users
                 using (var con = DBConnection.SqlServerConexion())
                 {
                     con.Open();
-                    string query = "SELECT * " +
-                                   "FROM MonthlyPayment m " +
-                                   "INNER JOIN MonthlyPaymentDetail d ON d.PaymentID = m.PaymentID " +
-                                   "WHERE m.PaymentID = @PaymentID";
+                    string query = "SELECT mp.PaymentID, u.UserID, u.FirstName Name, u.LastName, u.Email, sc.BasicSalary, sc.Bonus, sc.Discounts, (sc.BasicSalary + sc.Bonus - sc.Discounts) TotalSalary, Payed, mp.PaymentDate " +
+                                   "FROM MonthlyPaymentDetail mpd " +
+                                   "INNER JOIN Users u ON u.UserID = mpd.UserID " +
+                                   "INNER JOIN SalaryCalc sc ON sc.UserID = u.UserID " +
+                                   "INNER JOIN MonthlyPayment mp ON mp.PaymentID = mpd.PaymentID " +
+                                   "WHERE mp.PaymentID = @PaymentID";
 
                     var cmd = new SqlCommand(query, con);
 

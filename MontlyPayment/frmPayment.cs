@@ -35,8 +35,9 @@ namespace MontlyPayment
                 var paymentDetail = _userBL.GetPaymentDetail(idPayment);
                 for (int i = 0; i < paymentDetail.Count; i++)
                 {
-                    dgvEmployees.Rows.Add(paymentDetail[i].UserID, paymentDetail[i].Name, paymentDetail[i].Lastname, paymentDetail[i].Email, paymentDetail[i].BasicSalary,
-                                      paymentDetail[i].Bonus, paymentDetail[i].Discounts, paymentDetail[i].TotalSalary, paymentDetail[i].IsPayed);
+                    dgvEmployees.Rows.Add(paymentDetail[i].UserID, paymentDetail[i].Name, paymentDetail[i].Lastname, paymentDetail[i].Email, 
+                                          paymentDetail[i].BasicSalary, paymentDetail[i].Bonus, paymentDetail[i].Discounts, paymentDetail[i].TotalSalary,
+                                          paymentDetail[i].IsPayed);
                 }
             }
         }
@@ -73,9 +74,7 @@ namespace MontlyPayment
                     var arrayCode = _numberLCD.NumberToLCD(payCode).Split('\n');
 
                     var paymentDetail = SetPaymentDetail(idPayment, Convert.ToInt32(fila.Cells["UserID"].Value), Convert.ToDecimal(fila.Cells["TotalSalary"].Value),
-                                                false, fila.Cells["Name"].Value.ToString(), fila.Cells["Lastname"].Value.ToString(),
-                                                fila.Cells["Email"].Value.ToString(), Convert.ToDecimal(fila.Cells["BasicSalary"].Value), Convert.ToDecimal(fila.Cells["Bonus"].Value),
-                                                Convert.ToDecimal(fila.Cells["Discounts"].Value), payCode.ToString(), arrayCode);
+                                                false, payCode.ToString(), arrayCode);
                     _userBL.InsertPaymentDetail(paymentDetail);
 
                     // Create a file to write to.
@@ -84,12 +83,11 @@ namespace MontlyPayment
                 }
             }
 
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
-        private PaymentDetail SetPaymentDetail(int paymentID, int userID, decimal totalSalary, bool isPayed, string name, string lastname,
-                                               string email, decimal basicSalary, decimal bonus, decimal discounts, string payCode, string[] arrayCode)
+        private PaymentDetail SetPaymentDetail(int paymentID, int userID, decimal totalSalary, bool isPayed, string payCode, string[] arrayCode)
         {
             return new PaymentDetail
             {
@@ -97,12 +95,6 @@ namespace MontlyPayment
                 UserID = userID,
                 TotalSalary = totalSalary,
                 IsPayed = isPayed,
-                Name = name,
-                Lastname = lastname,
-                Email = email,
-                BasicSalary = basicSalary,
-                Bonus = bonus,
-                Discounts = discounts,
                 PayCode = payCode,
                 TopCode = arrayCode[0],
                 MidCode = arrayCode[1],
