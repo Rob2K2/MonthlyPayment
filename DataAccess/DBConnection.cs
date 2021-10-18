@@ -4,7 +4,7 @@ namespace DataAccess
 {
     public class DBConnection
     {
-        private static readonly string connection = "Data Source=RVD-I7\\SQLEXPRESS; Initial Catalog=MonthlyPayment; Integrated Security=True";
+        private static readonly string connection = "Data Source=localhost\\SQLEXPRESS; Initial Catalog=MonthlyPayment; Integrated Security=True";
 
         public static SqlConnection SqlServerConexion()
         {

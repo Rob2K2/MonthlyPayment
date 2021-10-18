@@ -92,9 +92,23 @@ namespace DataAccess.Users
                 using (var con = DBConnection.SqlServerConexion())
                 {
                     con.Open();
-                    string query = "SELECT u.UserID, FirstName, LastName, Email, BasicSalary, Bonus, Discounts, (BasicSalary + Bonus - Discounts) TotalSalary " +
+                    string query = "SELECT u.UserID, FirstName, LastName, Email, BasicSalary, ISNULL(Bonus.B,0) Bonus, ISNULL(Discounts.D,0) Discounts, (s.BasicSalary + ISNULL(Bonus.B,0) - ISNULL(Discounts.D,0)) TotalSalary " +
                                    "FROM Users u " +
                                    "INNER JOIN SalaryCalc s ON s.UserID = u.UserID " +
+                                   "LEFT JOIN " +
+                                   "(SELECT UserID, SUM(Amount) as B " +
+                                   "FROM SalaryDetail sd " +
+                                   "INNER JOIN SalaryTransaction st ON st.TransactionID = sd.TransactionID " +
+                                   "WHERE st.TransactionType = 1 " +
+                                   "GROUP BY UserID " +
+                                   ") Bonus ON Bonus.UserID = u.UserID " +
+                                   "LEFT JOIN " +
+                                   "(SELECT UserID, SUM(Amount) as D " +
+                                   "FROM SalaryDetail sd " +
+                                   "INNER JOIN SalaryTransaction st ON st.TransactionID = sd.TransactionID " +
+                                   "WHERE st.TransactionType = 2 " +
+                                   "GROUP BY UserID " +
+                                   ") Discounts ON Discounts.UserID = u.UserID " +
                                    "WHERE UserType = 2";
 
                     var cmd = new SqlCommand(query, con);
@@ -371,11 +385,25 @@ namespace DataAccess.Users
                 using (var con = DBConnection.SqlServerConexion())
                 {
                     con.Open();
-                    string query = "SELECT mp.PaymentID, u.UserID, u.FirstName Name, u.LastName, u.Email, sc.BasicSalary, sc.Bonus, sc.Discounts, (sc.BasicSalary + sc.Bonus - sc.Discounts) TotalSalary, Payed, mp.PaymentDate " +
+                    string query = "SELECT mp.PaymentID, u.UserID, u.FirstName Name, u.LastName, u.Email, sc.BasicSalary, ISNULL(Bonus.B,0) Bonus, ISNULL(Discounts.D,0) Discounts, (sc.BasicSalary + ISNULL(Bonus.B,0) - ISNULL(Discounts.D,0)) TotalSalary, Payed, mp.PaymentDate " +
                                    "FROM MonthlyPaymentDetail mpd " +
                                    "INNER JOIN Users u ON u.UserID = mpd.UserID " +
                                    "INNER JOIN SalaryCalc sc ON sc.UserID = u.UserID " +
                                    "INNER JOIN MonthlyPayment mp ON mp.PaymentID = mpd.PaymentID " +
+                                   "LEFT JOIN " +
+                                   "(SELECT UserID, SUM(Amount) as B " +
+                                   "FROM SalaryDetail sd " +
+                                   "INNER JOIN SalaryTransaction st ON st.TransactionID = sd.TransactionID " +
+                                   "WHERE st.TransactionType = 1 " +
+                                   "GROUP BY UserID " +
+                                   ") Bonus ON Bonus.UserID = u.UserID " +
+                                   "LEFT JOIN " +
+                                   "(SELECT UserID, SUM(Amount) as D " +
+                                   "FROM SalaryDetail sd " +
+                                   "INNER JOIN SalaryTransaction st ON st.TransactionID = sd.TransactionID " +
+                                   "WHERE st.TransactionType = 2 " +
+                                   "GROUP BY UserID " +
+                                   ") Discounts ON Discounts.UserID = u.UserID " +
                                    "WHERE mp.PaymentID = @PaymentID";
 
                     var cmd = new SqlCommand(query, con);
@@ -404,10 +432,25 @@ namespace DataAccess.Users
                 using (var con = DBConnection.SqlServerConexion())
                 {
                     con.Open();
-                    string query = "SELECT mp.PaymentDate, BasicSalary, Bonus, Discounts, (BasicSalary + Bonus - Discounts) TotalSalary, Payed, Paycode, mp.PaymentID " +
+                    string query = "SELECT mp.PaymentDate, BasicSalary, ISNULL(Bonus.B,0) Bonus, ISNULL(Discounts.D,0) Discounts, (BasicSalary + ISNULL(Bonus.B,0) - ISNULL(Discounts.D,0)) TotalSalary, Payed, Paycode, mp.PaymentID " +
                                    "FROM MonthlyPaymentDetail mpd " +
                                    "INNER JOIN MonthlyPayment mp ON mp.PaymentID = mpd.PaymentID " +
-                                   "WHERE UserID = @UserID";
+                                   "INNER JOIN SalaryCalc sc ON sc.UserID = mpd.UserID " +
+                                   "LEFT JOIN " +
+                                   "(SELECT UserID, SUM(Amount) as B " +
+                                   "FROM SalaryDetail sd " +
+                                   "INNER JOIN SalaryTransaction st ON st.TransactionID = sd.TransactionID " +
+                                   "WHERE st.TransactionType = 1 " +
+                                   "GROUP BY UserID " +
+                                   ") Bonus ON Bonus.UserID = mpd.UserID " +
+                                   "LEFT JOIN " +
+                                   "(SELECT UserID, SUM(Amount) as D " +
+                                   "FROM SalaryDetail sd " +
+                                   "INNER JOIN SalaryTransaction st ON st.TransactionID = sd.TransactionID " +
+                                   "WHERE st.TransactionType = 2 " +
+                                   "GROUP BY UserID " +
+                                   ") Discounts ON Discounts.UserID = mpd.UserID " +
+                                   "WHERE mpd.UserID = @UserID";
 
                     var cmd = new SqlCommand(query, con);
 
@@ -476,10 +519,26 @@ namespace DataAccess.Users
                 using (var con = DBConnection.SqlServerConexion())
                 {
                     con.Open();
-                    string query = "SELECT mp.PaymentDate, mpd.Name, mpd.Lastname, (BasicSalary + Bonus - Discounts) TotalSalary, Paycode, mp.PaymentID, mpd.UserID, topCode, midCode, botCode " +
+                    string query = "SELECT mp.PaymentDate, u.FirstName Name, u.LastName, (BasicSalary + ISNULL(Bonus.B,0) - ISNULL(Discounts.D,0)) TotalSalary, Paycode, mp.PaymentID, mpd.UserID, topCode, midCode, botCode " +
                                    "FROM MonthlyPaymentDetail mpd " +
                                    "INNER JOIN MonthlyPayment mp ON mp.PaymentID = mpd.PaymentID " +
-                                   "WHERE UserID = @UserID AND mp.PaymentID = @PaymentID";
+                                   "INNER JOIN Users u ON u.UserID = mpd.UserID " +
+                                   "INNER JOIN SalaryCalc sc ON sc.UserID = u.UserID " +
+                                   "LEFT JOIN " +
+                                   "(SELECT UserID, SUM(Amount) as B " +
+                                   "FROM SalaryDetail sd " +
+                                   "INNER JOIN SalaryTransaction st ON st.TransactionID = sd.TransactionID " +
+                                   "WHERE st.TransactionType = 1 " +
+                                   "GROUP BY UserID " +
+                                   ") Bonus ON Bonus.UserID = mpd.UserID " +
+                                   "LEFT JOIN " +
+                                   "(SELECT UserID, SUM(Amount) as D " +
+                                   "FROM SalaryDetail sd " +
+                                   "INNER JOIN SalaryTransaction st ON st.TransactionID = sd.TransactionID " +
+                                   "WHERE st.TransactionType = 2 " +
+                                   "GROUP BY UserID " +
+                                   ") Discounts ON Discounts.UserID = mpd.UserID " +
+                                   "WHERE mpd.UserID = @UserID AND mp.PaymentID = @PaymentID"; 
 
                     var cmd = new SqlCommand(query, con);
 

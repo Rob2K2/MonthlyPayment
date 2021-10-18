@@ -57,7 +57,7 @@ namespace MontlyPayment
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(308, 26);
             this.txtUsername.TabIndex = 1;
-            this.txtUsername.Text = "matt";
+            this.txtUsername.Text = "rob";
             // 
             // txtPassword
             // 
@@ -67,7 +67,7 @@ namespace MontlyPayment
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(308, 26);
             this.txtPassword.TabIndex = 2;
-            this.txtPassword.Text = "654321";
+            this.txtPassword.Text = "12345";
             // 
             // btnLogin
             // 

@@ -54,6 +54,8 @@ namespace MontlyPayment
             if (dgvEmployees.RowCount == 0)
             {
                 MessageBox.Show("List is Empty", "JALA");
+
+                return;
             }
 
             if (idPayment == 0)
@@ -73,12 +75,13 @@ namespace MontlyPayment
                     var payCode = rnd.Next(100000000, 999999999);
                     var arrayCode = _numberLCD.NumberToLCD(payCode).Split('\n');
 
-                    var paymentDetail = SetPaymentDetail(idPayment, Convert.ToInt32(fila.Cells["UserID"].Value), Convert.ToDecimal(fila.Cells["TotalSalary"].Value),
-                                                false, payCode.ToString(), arrayCode);
+                    var paymentDetail = SetPaymentDetail(idPayment, fila.Cells["Name"].Value.ToString(), Convert.ToInt32(fila.Cells["UserID"].Value),
+                                                         Convert.ToDecimal(fila.Cells["TotalSalary"].Value), false, payCode.ToString(), arrayCode);
                     _userBL.InsertPaymentDetail(paymentDetail);
 
                     // Create a file to write to.
-                    var filePath = Application.StartupPath + "\\Codes\\code" + paymentDetail.Name + dtpPaymentDate.Value.Month + dtpPaymentDate.Value.Year + ".txt";
+                    var filePath = Application.StartupPath + "\\Codes\\code" + paymentDetail.Name + dtpPaymentDate.Value.Day +
+                                   dtpPaymentDate.Value.Month + dtpPaymentDate.Value.Year + ".txt";
                     File.WriteAllText(filePath, _numberLCD.NumberToLCD(payCode));
                 }
             }
@@ -87,11 +90,12 @@ namespace MontlyPayment
             Close();
         }
 
-        private PaymentDetail SetPaymentDetail(int paymentID, int userID, decimal totalSalary, bool isPayed, string payCode, string[] arrayCode)
+        private PaymentDetail SetPaymentDetail(int paymentID, string name, int userID, decimal totalSalary, bool isPayed, string payCode, string[] arrayCode)
         {
             return new PaymentDetail
             {
                 PaymentID = paymentID,
+                Name = name,
                 UserID = userID,
                 TotalSalary = totalSalary,
                 IsPayed = isPayed,
