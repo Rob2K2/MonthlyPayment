@@ -9,7 +9,7 @@
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="rpt_GetPaymentTableAdapter" GeneratorDataComponentClassName="rpt_GetPaymentTableAdapter" Name="rpt_GetPayment" UserDataComponentName="rpt_GetPaymentTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="MonthlyPaymentConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="MonthlyPaymentConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT *
@@ -37,6 +37,11 @@ WHERE m.PaymentID = 17</CommandText>
               <Mapping SourceColumn="Discounts" DataSetColumn="Discounts" />
               <Mapping SourceColumn="TotalSalary" DataSetColumn="TotalSalary" />
               <Mapping SourceColumn="Payed" DataSetColumn="Payed" />
+              <Mapping SourceColumn="PayCode" DataSetColumn="PayCode" />
+              <Mapping SourceColumn="topCode" DataSetColumn="topCode" />
+              <Mapping SourceColumn="midCode" DataSetColumn="midCode" />
+              <Mapping SourceColumn="botCode" DataSetColumn="botCode" />
+              <Mapping SourceColumn="Currency" DataSetColumn="Currency" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -75,7 +80,7 @@ INNER JOIN MonthlyPayment mp ON mp.PaymentID = mpd.PaymentID </CommandText>
   <xs:element name="dsReports" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsReports" msprop:Generator_UserDSName="dsReports">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="rpt_GetPayment" msprop:Generator_TableClassName="rpt_GetPaymentDataTable" msprop:Generator_TableVarName="tablerpt_GetPayment" msprop:Generator_RowChangedName="rpt_GetPaymentRowChanged" msprop:Generator_TablePropName="rpt_GetPayment" msprop:Generator_RowDeletingName="rpt_GetPaymentRowDeleting" msprop:Generator_RowChangingName="rpt_GetPaymentRowChanging" msprop:Generator_RowEvHandlerName="rpt_GetPaymentRowChangeEventHandler" msprop:Generator_RowDeletedName="rpt_GetPaymentRowDeleted" msprop:Generator_RowClassName="rpt_GetPaymentRow" msprop:Generator_UserTableName="rpt_GetPayment" msprop:Generator_RowEvArgName="rpt_GetPaymentRowChangeEvent">
+        <xs:element name="rpt_GetPayment" msprop:Generator_TableClassName="rpt_GetPaymentDataTable" msprop:Generator_TableVarName="tablerpt_GetPayment" msprop:Generator_TablePropName="rpt_GetPayment" msprop:Generator_RowDeletingName="rpt_GetPaymentRowDeleting" msprop:Generator_RowChangingName="rpt_GetPaymentRowChanging" msprop:Generator_RowEvHandlerName="rpt_GetPaymentRowChangeEventHandler" msprop:Generator_RowDeletedName="rpt_GetPaymentRowDeleted" msprop:Generator_UserTableName="rpt_GetPayment" msprop:Generator_RowChangedName="rpt_GetPaymentRowChanged" msprop:Generator_RowEvArgName="rpt_GetPaymentRowChangeEvent" msprop:Generator_RowClassName="rpt_GetPaymentRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="PaymentID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnPaymentID" msprop:Generator_ColumnPropNameInRow="PaymentID" msprop:Generator_ColumnPropNameInTable="PaymentIDColumn" msprop:Generator_UserColumnName="PaymentID" type="xs:int" />
@@ -129,10 +134,45 @@ INNER JOIN MonthlyPayment mp ON mp.PaymentID = mpd.PaymentID </CommandText>
               <xs:element name="Discounts" msprop:Generator_ColumnVarNameInTable="columnDiscounts" msprop:Generator_ColumnPropNameInRow="Discounts" msprop:Generator_ColumnPropNameInTable="DiscountsColumn" msprop:Generator_UserColumnName="Discounts" type="xs:decimal" minOccurs="0" />
               <xs:element name="TotalSalary" msprop:Generator_ColumnVarNameInTable="columnTotalSalary" msprop:Generator_ColumnPropNameInRow="TotalSalary" msprop:Generator_ColumnPropNameInTable="TotalSalaryColumn" msprop:Generator_UserColumnName="TotalSalary" type="xs:decimal" minOccurs="0" />
               <xs:element name="Payed" msprop:Generator_ColumnVarNameInTable="columnPayed" msprop:Generator_ColumnPropNameInRow="Payed" msprop:Generator_ColumnPropNameInTable="PayedColumn" msprop:Generator_UserColumnName="Payed" type="xs:boolean" minOccurs="0" />
+              <xs:element name="PayCode" msprop:Generator_ColumnVarNameInTable="columnPayCode" msprop:Generator_ColumnPropNameInRow="PayCode" msprop:Generator_ColumnPropNameInTable="PayCodeColumn" msprop:Generator_UserColumnName="PayCode" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="9" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="topCode" msprop:Generator_ColumnVarNameInTable="columntopCode" msprop:Generator_ColumnPropNameInRow="topCode" msprop:Generator_ColumnPropNameInTable="topCodeColumn" msprop:Generator_UserColumnName="topCode" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="midCode" msprop:Generator_ColumnVarNameInTable="columnmidCode" msprop:Generator_ColumnPropNameInRow="midCode" msprop:Generator_ColumnPropNameInTable="midCodeColumn" msprop:Generator_UserColumnName="midCode" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="botCode" msprop:Generator_ColumnVarNameInTable="columnbotCode" msprop:Generator_ColumnPropNameInRow="botCode" msprop:Generator_ColumnPropNameInTable="botCodeColumn" msprop:Generator_UserColumnName="botCode" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Currency" msprop:Generator_ColumnVarNameInTable="columnCurrency" msprop:Generator_ColumnPropNameInRow="Currency" msprop:Generator_ColumnPropNameInTable="CurrencyColumn" msprop:Generator_UserColumnName="Currency" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="rpt_GetRecipe" msprop:Generator_TableClassName="rpt_GetRecipeDataTable" msprop:Generator_TableVarName="tablerpt_GetRecipe" msprop:Generator_TablePropName="rpt_GetRecipe" msprop:Generator_RowDeletingName="rpt_GetRecipeRowDeleting" msprop:Generator_RowChangingName="rpt_GetRecipeRowChanging" msprop:Generator_RowEvHandlerName="rpt_GetRecipeRowChangeEventHandler" msprop:Generator_RowDeletedName="rpt_GetRecipeRowDeleted" msprop:Generator_UserTableName="rpt_GetRecipe" msprop:Generator_RowChangedName="rpt_GetRecipeRowChanged" msprop:Generator_RowEvArgName="rpt_GetRecipeRowChangeEvent" msprop:Generator_RowClassName="rpt_GetRecipeRow">
+        <xs:element name="rpt_GetRecipe" msprop:Generator_TableClassName="rpt_GetRecipeDataTable" msprop:Generator_TableVarName="tablerpt_GetRecipe" msprop:Generator_RowChangedName="rpt_GetRecipeRowChanged" msprop:Generator_TablePropName="rpt_GetRecipe" msprop:Generator_RowDeletingName="rpt_GetRecipeRowDeleting" msprop:Generator_RowChangingName="rpt_GetRecipeRowChanging" msprop:Generator_RowEvHandlerName="rpt_GetRecipeRowChangeEventHandler" msprop:Generator_RowDeletedName="rpt_GetRecipeRowDeleted" msprop:Generator_RowClassName="rpt_GetRecipeRow" msprop:Generator_UserTableName="rpt_GetRecipe" msprop:Generator_RowEvArgName="rpt_GetRecipeRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="PaymentID" msprop:Generator_ColumnVarNameInTable="columnPaymentID" msprop:Generator_ColumnPropNameInRow="PaymentID" msprop:Generator_ColumnPropNameInTable="PaymentIDColumn" msprop:Generator_UserColumnName="PaymentID" type="xs:int" />

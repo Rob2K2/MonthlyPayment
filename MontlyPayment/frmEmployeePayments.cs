@@ -116,5 +116,15 @@ namespace MontlyPayment
         {
             Close();
         }
+
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            frmUserSettings frmUserSettings = new frmUserSettings(_userBL);
+            DialogResult res = frmUserSettings.ShowDialog();
+            if (res == DialogResult.OK)
+            {
+                MessageBox.Show("Settings saved successfully");
+            }
+        }
     }
 }

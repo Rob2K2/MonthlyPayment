@@ -1,11 +1,9 @@
 ﻿using DataAccess.Users;
+using Entities.Setting;
 using Entities.Users;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Users
 {
@@ -82,6 +80,16 @@ namespace Domain.Users
         public DataSet RptGetRecipe(int userID, int idPayment)
         {
             return _userDAL.RptGetRecipe(userID, idPayment);
+        }
+
+        public List<Currency> GetCurrency()
+        {
+            return _userDAL.GetCurrency();
+        }
+
+        public void UpdateCurrency(int userID, int currencyID)
+        {
+            _userDAL.UpdateCurrency(userID, currencyID);
         }
     }
 }

@@ -30,6 +30,10 @@ namespace MontlyPayment
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPayment));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvEmployees = new System.Windows.Forms.DataGridView();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -47,6 +51,7 @@ namespace MontlyPayment
             this.Bonus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Discounts = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TotalSalary = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Currency = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Payed = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployees)).BeginInit();
             this.SuspendLayout();
@@ -55,11 +60,11 @@ namespace MontlyPayment
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(346, 9);
+            this.label1.Location = new System.Drawing.Point(317, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(173, 37);
+            this.label1.Size = new System.Drawing.Size(330, 37);
             this.label1.TabIndex = 2;
-            this.label1.Text = "PAYMENT";
+            this.label1.Text = "PAYROLL PAYMENT";
             // 
             // dgvEmployees
             // 
@@ -77,10 +82,11 @@ namespace MontlyPayment
             this.Bonus,
             this.Discounts,
             this.TotalSalary,
+            this.Currency,
             this.Payed});
             this.dgvEmployees.Location = new System.Drawing.Point(12, 104);
             this.dgvEmployees.Name = "dgvEmployees";
-            this.dgvEmployees.Size = new System.Drawing.Size(948, 428);
+            this.dgvEmployees.Size = new System.Drawing.Size(1048, 428);
             this.dgvEmployees.TabIndex = 3;
             // 
             // btnCancel
@@ -88,7 +94,7 @@ namespace MontlyPayment
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(885, 538);
+            this.btnCancel.Location = new System.Drawing.Point(985, 538);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 37);
             this.btnCancel.TabIndex = 10;
@@ -101,7 +107,7 @@ namespace MontlyPayment
             // 
             this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(804, 538);
+            this.btnSave.Location = new System.Drawing.Point(904, 538);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 37);
             this.btnSave.TabIndex = 9;
@@ -145,7 +151,7 @@ namespace MontlyPayment
             // 
             // btnLoadEmployees
             // 
-            this.btnLoadEmployees.Location = new System.Drawing.Point(861, 59);
+            this.btnLoadEmployees.Location = new System.Drawing.Point(967, 59);
             this.btnLoadEmployees.Name = "btnLoadEmployees";
             this.btnLoadEmployees.Size = new System.Drawing.Size(93, 23);
             this.btnLoadEmployees.TabIndex = 24;
@@ -180,26 +186,44 @@ namespace MontlyPayment
             // BasicSalary
             // 
             this.BasicSalary.DataPropertyName = "BasicSalary";
+            dataGridViewCellStyle1.Format = "N2";
+            dataGridViewCellStyle1.NullValue = null;
+            this.BasicSalary.DefaultCellStyle = dataGridViewCellStyle1;
             this.BasicSalary.HeaderText = "Basic Salary";
             this.BasicSalary.Name = "BasicSalary";
             // 
             // Bonus
             // 
             this.Bonus.DataPropertyName = "Bonus";
+            dataGridViewCellStyle2.Format = "N2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.Bonus.DefaultCellStyle = dataGridViewCellStyle2;
             this.Bonus.HeaderText = "Bonus";
             this.Bonus.Name = "Bonus";
             // 
             // Discounts
             // 
             this.Discounts.DataPropertyName = "Discounts";
+            dataGridViewCellStyle3.Format = "N2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.Discounts.DefaultCellStyle = dataGridViewCellStyle3;
             this.Discounts.HeaderText = "Discounts";
             this.Discounts.Name = "Discounts";
             // 
             // TotalSalary
             // 
             this.TotalSalary.DataPropertyName = "TotalSalary";
+            dataGridViewCellStyle4.Format = "N2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.TotalSalary.DefaultCellStyle = dataGridViewCellStyle4;
             this.TotalSalary.HeaderText = "Total Salary";
             this.TotalSalary.Name = "TotalSalary";
+            // 
+            // Currency
+            // 
+            this.Currency.DataPropertyName = "Currency";
+            this.Currency.HeaderText = "Currency";
+            this.Currency.Name = "Currency";
             // 
             // Payed
             // 
@@ -211,7 +235,7 @@ namespace MontlyPayment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(966, 587);
+            this.ClientSize = new System.Drawing.Size(1072, 587);
             this.Controls.Add(this.btnLoadEmployees);
             this.Controls.Add(this.txtObservations);
             this.Controls.Add(this.label3);
@@ -221,7 +245,7 @@ namespace MontlyPayment
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.dgvEmployees);
             this.Controls.Add(this.label1);
-            this.Text = "HHRR - Payment";
+            this.Text = "HHRR - Payroll Payment";
             this.Load += new System.EventHandler(this.frmEmployeeList_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployees)).EndInit();
             this.ResumeLayout(false);
@@ -248,6 +272,7 @@ namespace MontlyPayment
         private System.Windows.Forms.DataGridViewTextBoxColumn Bonus;
         private System.Windows.Forms.DataGridViewTextBoxColumn Discounts;
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalSalary;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Currency;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Payed;
     }
 }

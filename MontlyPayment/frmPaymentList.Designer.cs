@@ -89,7 +89,7 @@ namespace MontlyPayment
             this.btnNewPayment.Name = "btnNewPayment";
             this.btnNewPayment.Size = new System.Drawing.Size(79, 37);
             this.btnNewPayment.TabIndex = 8;
-            this.btnNewPayment.Text = "New Payment";
+            this.btnNewPayment.Text = "New    Payroll   ";
             this.btnNewPayment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnNewPayment.UseVisualStyleBackColor = true;
             this.btnNewPayment.Click += new System.EventHandler(this.btnNewPayment_Click);

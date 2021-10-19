@@ -17,5 +17,7 @@
         public decimal Discounts { get; set; }
 
         public decimal TotalSalary { get; set; }
+
+        public string Currency { get; set; }
     }
 }

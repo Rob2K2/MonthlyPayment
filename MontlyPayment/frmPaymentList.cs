@@ -39,7 +39,7 @@ namespace MontlyPayment
             DialogResult res = frmEmployeeListDetails.ShowDialog();
             if (res == DialogResult.OK)
             {
-                MessageBox.Show("Payment Saved Successfully");
+                MessageBox.Show("Payroll Saved Successfully");
                 monthlyPaymentTableAdapter.Fill(monthlyPaymentDataSet.MonthlyPayment);
             }
         }

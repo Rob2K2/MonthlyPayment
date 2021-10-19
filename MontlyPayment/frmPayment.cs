@@ -76,7 +76,8 @@ namespace MontlyPayment
                     var arrayCode = _numberLCD.NumberToLCD(payCode).Split('\n');
 
                     var paymentDetail = SetPaymentDetail(idPayment, fila.Cells["Name"].Value.ToString(), Convert.ToInt32(fila.Cells["UserID"].Value),
-                                                         Convert.ToDecimal(fila.Cells["TotalSalary"].Value), false, payCode.ToString(), arrayCode);
+                                                         Convert.ToDecimal(fila.Cells["TotalSalary"].Value), false, payCode.ToString(), arrayCode,
+                                                         fila.Cells["Currency"].Value.ToString());
                     _userBL.InsertPaymentDetail(paymentDetail);
 
                     // Create a file to write to.
@@ -90,7 +91,7 @@ namespace MontlyPayment
             Close();
         }
 
-        private PaymentDetail SetPaymentDetail(int paymentID, string name, int userID, decimal totalSalary, bool isPayed, string payCode, string[] arrayCode)
+        private PaymentDetail SetPaymentDetail(int paymentID, string name, int userID, decimal totalSalary, bool isPayed, string payCode, string[] arrayCode, string currency)
         {
             return new PaymentDetail
             {
@@ -102,7 +103,8 @@ namespace MontlyPayment
                 PayCode = payCode,
                 TopCode = arrayCode[0],
                 MidCode = arrayCode[1],
-                BotCode = arrayCode[2]
+                BotCode = arrayCode[2],
+                Currency = currency
             };
         }
 
@@ -114,7 +116,7 @@ namespace MontlyPayment
             for (int i = 0; i < employees.Count; i++)
             {
                 dgvEmployees.Rows.Add(employees[i].UserID, employees[i].Firstname, employees[i].Lastname, employees[i].Email, employees[i].BasicSalary,
-                                      employees[i].Bonus, employees[i].Discounts, employees[i].TotalSalary);
+                                      employees[i].Bonus, employees[i].Discounts, employees[i].TotalSalary, employees[i].Currency);
             }
         }
     }

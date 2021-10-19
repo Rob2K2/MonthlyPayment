@@ -53,6 +53,7 @@ namespace MontlyPayment
             this.lblName = new System.Windows.Forms.Label();
             this.lblLastname = new System.Windows.Forms.Label();
             this.btnLogout = new System.Windows.Forms.Button();
+            this.btnSettings = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployeePayments)).BeginInit();
             this.SuspendLayout();
             // 
@@ -277,11 +278,22 @@ namespace MontlyPayment
             this.btnLogout.UseVisualStyleBackColor = true;
             this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
             // 
+            // btnSettings
+            // 
+            this.btnSettings.Location = new System.Drawing.Point(781, 50);
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Size = new System.Drawing.Size(75, 23);
+            this.btnSettings.TabIndex = 38;
+            this.btnSettings.Text = "Settings";
+            this.btnSettings.UseVisualStyleBackColor = true;
+            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
+            // 
             // frmEmployeePayments
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(862, 569);
+            this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.btnLogout);
             this.Controls.Add(this.lblLastname);
             this.Controls.Add(this.lblName);
@@ -298,7 +310,7 @@ namespace MontlyPayment
             this.Controls.Add(this.dgvEmployeePayments);
             this.Controls.Add(this.label1);
             this.Name = "frmEmployeePayments";
-            this.Text = "Employee - Pending Pay";
+            this.Text = "Employee - Payment List";
             this.Load += new System.EventHandler(this.frmEmployeePayments_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployeePayments)).EndInit();
             this.ResumeLayout(false);
@@ -331,5 +343,6 @@ namespace MontlyPayment
         private System.Windows.Forms.DataGridViewCheckBoxColumn IsPayed;
         private System.Windows.Forms.DataGridViewTextBoxColumn PayCode;
         private System.Windows.Forms.Button btnLogout;
+        private System.Windows.Forms.Button btnSettings;
     }
 }

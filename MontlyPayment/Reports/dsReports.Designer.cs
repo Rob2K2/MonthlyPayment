@@ -344,6 +344,16 @@ namespace MontlyPayment.Reports {
             
             private global::System.Data.DataColumn columnPayed;
             
+            private global::System.Data.DataColumn columnPayCode;
+            
+            private global::System.Data.DataColumn columntopCode;
+            
+            private global::System.Data.DataColumn columnmidCode;
+            
+            private global::System.Data.DataColumn columnbotCode;
+            
+            private global::System.Data.DataColumn columnCurrency;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public rpt_GetPaymentDataTable() {
@@ -499,6 +509,46 @@ namespace MontlyPayment.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn PayCodeColumn {
+                get {
+                    return this.columnPayCode;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn topCodeColumn {
+                get {
+                    return this.columntopCode;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn midCodeColumn {
+                get {
+                    return this.columnmidCode;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn botCodeColumn {
+                get {
+                    return this.columnbotCode;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn CurrencyColumn {
+                get {
+                    return this.columnCurrency;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -534,7 +584,26 @@ namespace MontlyPayment.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public rpt_GetPaymentRow Addrpt_GetPaymentRow(System.DateTime PaymentDate, string Month, string Year, string Observations, int PaymentID1, int UserID, string Name, string Lastname, string Email, decimal BasicSalary, decimal Bonus, decimal Discounts, decimal TotalSalary, bool Payed) {
+            public rpt_GetPaymentRow Addrpt_GetPaymentRow(
+                        System.DateTime PaymentDate, 
+                        string Month, 
+                        string Year, 
+                        string Observations, 
+                        int PaymentID1, 
+                        int UserID, 
+                        string Name, 
+                        string Lastname, 
+                        string Email, 
+                        decimal BasicSalary, 
+                        decimal Bonus, 
+                        decimal Discounts, 
+                        decimal TotalSalary, 
+                        bool Payed, 
+                        string PayCode, 
+                        string topCode, 
+                        string midCode, 
+                        string botCode, 
+                        string Currency) {
                 rpt_GetPaymentRow rowrpt_GetPaymentRow = ((rpt_GetPaymentRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -551,7 +620,12 @@ namespace MontlyPayment.Reports {
                         Bonus,
                         Discounts,
                         TotalSalary,
-                        Payed};
+                        Payed,
+                        PayCode,
+                        topCode,
+                        midCode,
+                        botCode,
+                        Currency};
                 rowrpt_GetPaymentRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowrpt_GetPaymentRow);
                 return rowrpt_GetPaymentRow;
@@ -596,6 +670,11 @@ namespace MontlyPayment.Reports {
                 this.columnDiscounts = base.Columns["Discounts"];
                 this.columnTotalSalary = base.Columns["TotalSalary"];
                 this.columnPayed = base.Columns["Payed"];
+                this.columnPayCode = base.Columns["PayCode"];
+                this.columntopCode = base.Columns["topCode"];
+                this.columnmidCode = base.Columns["midCode"];
+                this.columnbotCode = base.Columns["botCode"];
+                this.columnCurrency = base.Columns["Currency"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -631,6 +710,16 @@ namespace MontlyPayment.Reports {
                 base.Columns.Add(this.columnTotalSalary);
                 this.columnPayed = new global::System.Data.DataColumn("Payed", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPayed);
+                this.columnPayCode = new global::System.Data.DataColumn("PayCode", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPayCode);
+                this.columntopCode = new global::System.Data.DataColumn("topCode", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntopCode);
+                this.columnmidCode = new global::System.Data.DataColumn("midCode", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnmidCode);
+                this.columnbotCode = new global::System.Data.DataColumn("botCode", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnbotCode);
+                this.columnCurrency = new global::System.Data.DataColumn("Currency", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCurrency);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnPaymentID}, true));
                 this.columnPaymentID.AutoIncrement = true;
@@ -647,6 +736,11 @@ namespace MontlyPayment.Reports {
                 this.columnName.MaxLength = 50;
                 this.columnLastname.MaxLength = 50;
                 this.columnEmail.MaxLength = 50;
+                this.columnPayCode.MaxLength = 9;
+                this.columntopCode.MaxLength = 50;
+                this.columnmidCode.MaxLength = 50;
+                this.columnbotCode.MaxLength = 50;
+                this.columnCurrency.MaxLength = 3;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1405,6 +1499,86 @@ namespace MontlyPayment.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string PayCode {
+                get {
+                    try {
+                        return ((string)(this[this.tablerpt_GetPayment.PayCodeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PayCode\' in table \'rpt_GetPayment\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablerpt_GetPayment.PayCodeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string topCode {
+                get {
+                    try {
+                        return ((string)(this[this.tablerpt_GetPayment.topCodeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'topCode\' in table \'rpt_GetPayment\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablerpt_GetPayment.topCodeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string midCode {
+                get {
+                    try {
+                        return ((string)(this[this.tablerpt_GetPayment.midCodeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'midCode\' in table \'rpt_GetPayment\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablerpt_GetPayment.midCodeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string botCode {
+                get {
+                    try {
+                        return ((string)(this[this.tablerpt_GetPayment.botCodeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'botCode\' in table \'rpt_GetPayment\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablerpt_GetPayment.botCodeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Currency {
+                get {
+                    try {
+                        return ((string)(this[this.tablerpt_GetPayment.CurrencyColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Currency\' in table \'rpt_GetPayment\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablerpt_GetPayment.CurrencyColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsPaymentDateNull() {
                 return this.IsNull(this.tablerpt_GetPayment.PaymentDateColumn);
             }
@@ -1545,6 +1719,66 @@ namespace MontlyPayment.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetPayedNull() {
                 this[this.tablerpt_GetPayment.PayedColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsPayCodeNull() {
+                return this.IsNull(this.tablerpt_GetPayment.PayCodeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetPayCodeNull() {
+                this[this.tablerpt_GetPayment.PayCodeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IstopCodeNull() {
+                return this.IsNull(this.tablerpt_GetPayment.topCodeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SettopCodeNull() {
+                this[this.tablerpt_GetPayment.topCodeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsmidCodeNull() {
+                return this.IsNull(this.tablerpt_GetPayment.midCodeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetmidCodeNull() {
+                this[this.tablerpt_GetPayment.midCodeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsbotCodeNull() {
+                return this.IsNull(this.tablerpt_GetPayment.botCodeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetbotCodeNull() {
+                this[this.tablerpt_GetPayment.botCodeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCurrencyNull() {
+                return this.IsNull(this.tablerpt_GetPayment.CurrencyColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCurrencyNull() {
+                this[this.tablerpt_GetPayment.CurrencyColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -2017,6 +2251,11 @@ namespace MontlyPayment.Reports.dsReportsTableAdapters {
             tableMapping.ColumnMappings.Add("Discounts", "Discounts");
             tableMapping.ColumnMappings.Add("TotalSalary", "TotalSalary");
             tableMapping.ColumnMappings.Add("Payed", "Payed");
+            tableMapping.ColumnMappings.Add("PayCode", "PayCode");
+            tableMapping.ColumnMappings.Add("topCode", "topCode");
+            tableMapping.ColumnMappings.Add("midCode", "midCode");
+            tableMapping.ColumnMappings.Add("botCode", "botCode");
+            tableMapping.ColumnMappings.Add("Currency", "Currency");
             this._adapter.TableMappings.Add(tableMapping);
         }
         

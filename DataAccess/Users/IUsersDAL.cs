@@ -1,4 +1,5 @@
-﻿using Entities.Users;
+﻿using Entities.Setting;
+using Entities.Users;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -34,5 +35,9 @@ namespace DataAccess.Users
         void UpdatePendingPayment(int userID, int paymentID);
 
         DataSet RptGetRecipe(int userID, int idPayment);
+
+        List<Currency> GetCurrency();
+
+        void UpdateCurrency(int userID, int currencyID);
     }
 }

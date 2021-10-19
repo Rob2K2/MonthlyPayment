@@ -33,5 +33,7 @@ namespace Entities.Users
         public string MidCode { get; set; }
 
         public string BotCode { get; set; }
+
+        public string Currency { get; set; }
     }
 }
