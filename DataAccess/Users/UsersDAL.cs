@@ -442,10 +442,13 @@ namespace DataAccess.Users
                 using (var con = DBConnection.SqlServerConexion())
                 {
                     con.Open();
-                    string query = "SELECT mp.PaymentDate, BasicSalary, ISNULL(Bonus.B,0) Bonus, ISNULL(Discounts.D,0) Discounts, (BasicSalary + ISNULL(Bonus.B,0) - ISNULL(Discounts.D,0)) TotalSalary, Payed, Paycode, mp.PaymentID " +
+                    string query = "SELECT mp.PaymentDate, BasicSalary/c.Value BasicSalary, ISNULL(Bonus.B,0)/c.Value Bonus, ISNULL(Discounts.D,0)/c.Value Discounts, Payed, Paycode, mp.PaymentID, Currency, " +
+                                   "(sc.BasicSalary + ISNULL(Bonus.B, 0) - ISNULL(Discounts.D, 0)) / c.Value TotalSalary " +
                                    "FROM MonthlyPaymentDetail mpd " +
                                    "INNER JOIN MonthlyPayment mp ON mp.PaymentID = mpd.PaymentID " +
                                    "INNER JOIN SalaryCalc sc ON sc.UserID = mpd.UserID " +
+                                   "INNER JOIN UserExchangeRate uer ON uer.UserID = sc.UserID " +
+                                   "INNER JOIN Currency c ON c.CurrencyID = uer.CurrencyID " +
                                    "LEFT JOIN " +
                                    "(SELECT UserID, SUM(Amount) as B " +
                                    "FROM SalaryDetail sd " +
@@ -479,7 +482,8 @@ namespace DataAccess.Users
                                 Discounts = Convert.ToDecimal(dr["Discounts"]),
                                 TotalSalary = Convert.ToDecimal(dr["TotalSalary"]),
                                 IsPayed = Convert.ToBoolean(dr["Payed"]),
-                                PayCode = dr["Paycode"].ToString()
+                                PayCode = dr["Paycode"].ToString(),
+                                Currency = dr["Currency"].ToString()
                             };
                             paymentsDetail.Add(paymentDetail);
                         }
@@ -529,13 +533,12 @@ namespace DataAccess.Users
                 using (var con = DBConnection.SqlServerConexion())
                 {
                     con.Open();
-                    string query = "SELECT mp.PaymentID, u.UserID, u.FirstName Name, u.LastName, u.Email, BasicSalary/c.Value BasicSalary, ISNULL(Bonus.B,0)/c.Value Bonus, ISNULL(Discounts.D,0)/c.Value Discounts, " +
-                                   "Payed, mp.PaymentDate, " +
-                                   "(sc.BasicSalary + ISNULL(Bonus.B, 0) - ISNULL(Discounts.D, 0)) / c.Value TotalSalary, c.Name Currency " +
+                    string query = "SELECT mp.PaymentDate, u.FirstName Name, u.LastName, (sc.BasicSalary + ISNULL(Bonus.B, 0) - ISNULL(Discounts.D, 0)) / c.Value TotalSalary, " +
+                                   "Paycode, mp.PaymentID, mpd.UserID, topCode, midCode, botCode, Currency " +
                                    "FROM MonthlyPaymentDetail mpd " +
+                                   "INNER JOIN MonthlyPayment mp ON mp.PaymentID = mpd.PaymentID " +
                                    "INNER JOIN Users u ON u.UserID = mpd.UserID " +
                                    "INNER JOIN SalaryCalc sc ON sc.UserID = u.UserID " +
-                                   "INNER JOIN MonthlyPayment mp ON mp.PaymentID = mpd.PaymentID " +
                                    "INNER JOIN UserExchangeRate uer ON uer.UserID = u.UserID " +
                                    "INNER JOIN Currency c ON c.CurrencyID = uer.CurrencyID " +
                                    "LEFT JOIN " +

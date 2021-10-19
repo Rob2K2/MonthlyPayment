@@ -878,8 +878,6 @@ namespace MontlyPayment.Reports {
             
             private global::System.Data.DataColumn columnName;
             
-            private global::System.Data.DataColumn columnLastname;
-            
             private global::System.Data.DataColumn columnTotalSalary;
             
             private global::System.Data.DataColumn columnPaymentDate;
@@ -893,6 +891,10 @@ namespace MontlyPayment.Reports {
             private global::System.Data.DataColumn columnmidCode;
             
             private global::System.Data.DataColumn columnbotCode;
+            
+            private global::System.Data.DataColumn columnLastName;
+            
+            private global::System.Data.DataColumn columnCurrency;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -940,14 +942,6 @@ namespace MontlyPayment.Reports {
             public global::System.Data.DataColumn NameColumn {
                 get {
                     return this.columnName;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn LastnameColumn {
-                get {
-                    return this.columnLastname;
                 }
             }
             
@@ -1009,6 +1003,22 @@ namespace MontlyPayment.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn LastNameColumn {
+                get {
+                    return this.columnLastName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn CurrencyColumn {
+                get {
+                    return this.columnCurrency;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1044,19 +1054,20 @@ namespace MontlyPayment.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public rpt_GetRecipeRow Addrpt_GetRecipeRow(int PaymentID, string Name, string Lastname, decimal TotalSalary, System.DateTime PaymentDate, string Paycode, int UserID, string topCode, string midCode, string botCode) {
+            public rpt_GetRecipeRow Addrpt_GetRecipeRow(int PaymentID, string Name, decimal TotalSalary, System.DateTime PaymentDate, string Paycode, int UserID, string topCode, string midCode, string botCode, string LastName, string Currency) {
                 rpt_GetRecipeRow rowrpt_GetRecipeRow = ((rpt_GetRecipeRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         PaymentID,
                         Name,
-                        Lastname,
                         TotalSalary,
                         PaymentDate,
                         Paycode,
                         UserID,
                         topCode,
                         midCode,
-                        botCode};
+                        botCode,
+                        LastName,
+                        Currency};
                 rowrpt_GetRecipeRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowrpt_GetRecipeRow);
                 return rowrpt_GetRecipeRow;
@@ -1088,7 +1099,6 @@ namespace MontlyPayment.Reports {
             internal void InitVars() {
                 this.columnPaymentID = base.Columns["PaymentID"];
                 this.columnName = base.Columns["Name"];
-                this.columnLastname = base.Columns["Lastname"];
                 this.columnTotalSalary = base.Columns["TotalSalary"];
                 this.columnPaymentDate = base.Columns["PaymentDate"];
                 this.columnPaycode = base.Columns["Paycode"];
@@ -1096,6 +1106,8 @@ namespace MontlyPayment.Reports {
                 this.columntopCode = base.Columns["topCode"];
                 this.columnmidCode = base.Columns["midCode"];
                 this.columnbotCode = base.Columns["botCode"];
+                this.columnLastName = base.Columns["LastName"];
+                this.columnCurrency = base.Columns["Currency"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1105,8 +1117,6 @@ namespace MontlyPayment.Reports {
                 base.Columns.Add(this.columnPaymentID);
                 this.columnName = new global::System.Data.DataColumn("Name", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnName);
-                this.columnLastname = new global::System.Data.DataColumn("Lastname", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnLastname);
                 this.columnTotalSalary = new global::System.Data.DataColumn("TotalSalary", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTotalSalary);
                 this.columnPaymentDate = new global::System.Data.DataColumn("PaymentDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
@@ -1121,17 +1131,22 @@ namespace MontlyPayment.Reports {
                 base.Columns.Add(this.columnmidCode);
                 this.columnbotCode = new global::System.Data.DataColumn("botCode", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnbotCode);
+                this.columnLastName = new global::System.Data.DataColumn("LastName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLastName);
+                this.columnCurrency = new global::System.Data.DataColumn("Currency", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCurrency);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnPaymentID}, true));
                 this.columnPaymentID.AllowDBNull = false;
                 this.columnPaymentID.Unique = true;
                 this.columnName.MaxLength = 50;
-                this.columnLastname.MaxLength = 50;
                 this.columnPaycode.MaxLength = 9;
                 this.columnUserID.AllowDBNull = false;
                 this.columntopCode.MaxLength = 50;
                 this.columnmidCode.MaxLength = 50;
                 this.columnbotCode.MaxLength = 50;
+                this.columnLastName.MaxLength = 100;
+                this.columnCurrency.MaxLength = 3;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1825,22 +1840,6 @@ namespace MontlyPayment.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Lastname {
-                get {
-                    try {
-                        return ((string)(this[this.tablerpt_GetRecipe.LastnameColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Lastname\' in table \'rpt_GetRecipe\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tablerpt_GetRecipe.LastnameColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public decimal TotalSalary {
                 get {
                     try {
@@ -1948,6 +1947,38 @@ namespace MontlyPayment.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string LastName {
+                get {
+                    try {
+                        return ((string)(this[this.tablerpt_GetRecipe.LastNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LastName\' in table \'rpt_GetRecipe\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablerpt_GetRecipe.LastNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Currency {
+                get {
+                    try {
+                        return ((string)(this[this.tablerpt_GetRecipe.CurrencyColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Currency\' in table \'rpt_GetRecipe\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablerpt_GetRecipe.CurrencyColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsNameNull() {
                 return this.IsNull(this.tablerpt_GetRecipe.NameColumn);
             }
@@ -1956,18 +1987,6 @@ namespace MontlyPayment.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetNameNull() {
                 this[this.tablerpt_GetRecipe.NameColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsLastnameNull() {
-                return this.IsNull(this.tablerpt_GetRecipe.LastnameColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetLastnameNull() {
-                this[this.tablerpt_GetRecipe.LastnameColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2040,6 +2059,30 @@ namespace MontlyPayment.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetbotCodeNull() {
                 this[this.tablerpt_GetRecipe.botCodeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsLastNameNull() {
+                return this.IsNull(this.tablerpt_GetRecipe.LastNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetLastNameNull() {
+                this[this.tablerpt_GetRecipe.LastNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCurrencyNull() {
+                return this.IsNull(this.tablerpt_GetRecipe.CurrencyColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCurrencyNull() {
+                this[this.tablerpt_GetRecipe.CurrencyColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -2425,7 +2468,6 @@ namespace MontlyPayment.Reports.dsReportsTableAdapters {
             tableMapping.DataSetTable = "rpt_GetRecipe";
             tableMapping.ColumnMappings.Add("PaymentID", "PaymentID");
             tableMapping.ColumnMappings.Add("Name", "Name");
-            tableMapping.ColumnMappings.Add("Lastname", "Lastname");
             tableMapping.ColumnMappings.Add("TotalSalary", "TotalSalary");
             tableMapping.ColumnMappings.Add("PaymentDate", "PaymentDate");
             tableMapping.ColumnMappings.Add("Paycode", "Paycode");
@@ -2433,6 +2475,8 @@ namespace MontlyPayment.Reports.dsReportsTableAdapters {
             tableMapping.ColumnMappings.Add("topCode", "topCode");
             tableMapping.ColumnMappings.Add("midCode", "midCode");
             tableMapping.ColumnMappings.Add("botCode", "botCode");
+            tableMapping.ColumnMappings.Add("LastName", "LastName");
+            tableMapping.ColumnMappings.Add("Currency", "Currency");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -2449,10 +2493,29 @@ namespace MontlyPayment.Reports.dsReportsTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT mp.PaymentDate, mpd.Name, mpd.Lastname, (BasicSalary + Bonus - Discounts) " +
-                "TotalSalary, Paycode, mp.PaymentID, mpd.UserID, topCode, midCode, botCode \r\nFROM" +
-                " MonthlyPaymentDetail mpd \r\nINNER JOIN MonthlyPayment mp ON mp.PaymentID = mpd.P" +
-                "aymentID ";
+            this._commandCollection[0].CommandText = @"SELECT mp.PaymentDate, u.FirstName Name, u.LastName, (sc.BasicSalary + ISNULL(Bonus.B, 0) - ISNULL(Discounts.D, 0)) / c.Value TotalSalary,
+Paycode, mp.PaymentID, mpd.UserID, topCode, midCode, botCode, Currency 
+FROM MonthlyPaymentDetail mpd 
+INNER JOIN MonthlyPayment mp ON mp.PaymentID = mpd.PaymentID 
+INNER JOIN Users u ON u.UserID = mpd.UserID 
+INNER JOIN SalaryCalc sc ON sc.UserID = u.UserID 
+INNER JOIN UserExchangeRate uer ON uer.UserID = u.UserID 
+INNER JOIN Currency c ON c.CurrencyID = uer.CurrencyID 
+LEFT JOIN 
+(SELECT UserID, SUM(Amount) as B 
+FROM SalaryDetail sd 
+INNER JOIN SalaryTransaction st ON st.TransactionID = sd.TransactionID 
+WHERE st.TransactionType = 1 
+GROUP BY UserID 
+) Bonus ON Bonus.UserID = mpd.UserID 
+LEFT JOIN 
+(SELECT UserID, SUM(Amount) as D 
+FROM SalaryDetail sd 
+INNER JOIN SalaryTransaction st ON st.TransactionID = sd.TransactionID 
+WHERE st.TransactionType = 2 
+GROUP BY UserID 
+) Discounts ON Discounts.UserID = mpd.UserID 
+WHERE mpd.UserID = 2 AND mp.PaymentID = 64";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         

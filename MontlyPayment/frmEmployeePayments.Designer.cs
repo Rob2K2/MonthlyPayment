@@ -30,16 +30,12 @@ namespace MontlyPayment
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEmployeePayments));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvEmployeePayments = new System.Windows.Forms.DataGridView();
-            this.PaymentID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PaymentDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BasicSalary = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Bonus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Discounts = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalSalary = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IsPayed = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.PayCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnEarn = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
@@ -54,6 +50,15 @@ namespace MontlyPayment
             this.lblLastname = new System.Windows.Forms.Label();
             this.btnLogout = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
+            this.PaymentID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PaymentDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BasicSalary = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Bonus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Discounts = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalSalary = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Currency = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IsPayed = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.PayCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployeePayments)).BeginInit();
             this.SuspendLayout();
             // 
@@ -81,6 +86,7 @@ namespace MontlyPayment
             this.Bonus,
             this.Discounts,
             this.TotalSalary,
+            this.Currency,
             this.IsPayed,
             this.PayCode});
             this.dgvEmployeePayments.Location = new System.Drawing.Point(12, 119);
@@ -89,63 +95,6 @@ namespace MontlyPayment
             this.dgvEmployeePayments.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvEmployeePayments.Size = new System.Drawing.Size(844, 402);
             this.dgvEmployeePayments.TabIndex = 3;
-            // 
-            // PaymentID
-            // 
-            this.PaymentID.DataPropertyName = "PaymentID";
-            this.PaymentID.HeaderText = "PaymentID";
-            this.PaymentID.Name = "PaymentID";
-            this.PaymentID.ReadOnly = true;
-            // 
-            // PaymentDate
-            // 
-            this.PaymentDate.DataPropertyName = "PaymentDate";
-            this.PaymentDate.HeaderText = "Payment Date";
-            this.PaymentDate.Name = "PaymentDate";
-            this.PaymentDate.ReadOnly = true;
-            // 
-            // BasicSalary
-            // 
-            this.BasicSalary.DataPropertyName = "BasicSalary";
-            this.BasicSalary.HeaderText = "Basic Salary";
-            this.BasicSalary.Name = "BasicSalary";
-            this.BasicSalary.ReadOnly = true;
-            // 
-            // Bonus
-            // 
-            this.Bonus.DataPropertyName = "Bonus";
-            this.Bonus.HeaderText = "Bonus";
-            this.Bonus.Name = "Bonus";
-            this.Bonus.ReadOnly = true;
-            // 
-            // Discounts
-            // 
-            this.Discounts.DataPropertyName = "Discounts";
-            this.Discounts.HeaderText = "Discounts";
-            this.Discounts.Name = "Discounts";
-            this.Discounts.ReadOnly = true;
-            // 
-            // TotalSalary
-            // 
-            this.TotalSalary.DataPropertyName = "TotalSalary";
-            this.TotalSalary.HeaderText = "Total Salary";
-            this.TotalSalary.Name = "TotalSalary";
-            this.TotalSalary.ReadOnly = true;
-            // 
-            // IsPayed
-            // 
-            this.IsPayed.DataPropertyName = "IsPayed";
-            this.IsPayed.HeaderText = "IsPayed";
-            this.IsPayed.Name = "IsPayed";
-            this.IsPayed.ReadOnly = true;
-            // 
-            // PayCode
-            // 
-            this.PayCode.DataPropertyName = "PayCode";
-            this.PayCode.HeaderText = "PayCode";
-            this.PayCode.Name = "PayCode";
-            this.PayCode.ReadOnly = true;
-            this.PayCode.Visible = false;
             // 
             // btnEarn
             // 
@@ -288,6 +237,82 @@ namespace MontlyPayment
             this.btnSettings.UseVisualStyleBackColor = true;
             this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
+            // PaymentID
+            // 
+            this.PaymentID.DataPropertyName = "PaymentID";
+            this.PaymentID.HeaderText = "PaymentID";
+            this.PaymentID.Name = "PaymentID";
+            this.PaymentID.ReadOnly = true;
+            // 
+            // PaymentDate
+            // 
+            this.PaymentDate.DataPropertyName = "PaymentDate";
+            this.PaymentDate.HeaderText = "Payment Date";
+            this.PaymentDate.Name = "PaymentDate";
+            this.PaymentDate.ReadOnly = true;
+            // 
+            // BasicSalary
+            // 
+            this.BasicSalary.DataPropertyName = "BasicSalary";
+            dataGridViewCellStyle1.Format = "N2";
+            dataGridViewCellStyle1.NullValue = null;
+            this.BasicSalary.DefaultCellStyle = dataGridViewCellStyle1;
+            this.BasicSalary.HeaderText = "Basic Salary";
+            this.BasicSalary.Name = "BasicSalary";
+            this.BasicSalary.ReadOnly = true;
+            // 
+            // Bonus
+            // 
+            this.Bonus.DataPropertyName = "Bonus";
+            dataGridViewCellStyle2.Format = "N2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.Bonus.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Bonus.HeaderText = "Bonus";
+            this.Bonus.Name = "Bonus";
+            this.Bonus.ReadOnly = true;
+            // 
+            // Discounts
+            // 
+            this.Discounts.DataPropertyName = "Discounts";
+            dataGridViewCellStyle3.Format = "N2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.Discounts.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Discounts.HeaderText = "Discounts";
+            this.Discounts.Name = "Discounts";
+            this.Discounts.ReadOnly = true;
+            // 
+            // TotalSalary
+            // 
+            this.TotalSalary.DataPropertyName = "TotalSalary";
+            dataGridViewCellStyle4.Format = "N2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.TotalSalary.DefaultCellStyle = dataGridViewCellStyle4;
+            this.TotalSalary.HeaderText = "Total Salary";
+            this.TotalSalary.Name = "TotalSalary";
+            this.TotalSalary.ReadOnly = true;
+            // 
+            // Currency
+            // 
+            this.Currency.DataPropertyName = "Currency";
+            this.Currency.HeaderText = "Currency";
+            this.Currency.Name = "Currency";
+            this.Currency.ReadOnly = true;
+            // 
+            // IsPayed
+            // 
+            this.IsPayed.DataPropertyName = "IsPayed";
+            this.IsPayed.HeaderText = "IsPayed";
+            this.IsPayed.Name = "IsPayed";
+            this.IsPayed.ReadOnly = true;
+            // 
+            // PayCode
+            // 
+            this.PayCode.DataPropertyName = "PayCode";
+            this.PayCode.HeaderText = "PayCode";
+            this.PayCode.Name = "PayCode";
+            this.PayCode.ReadOnly = true;
+            this.PayCode.Visible = false;
+            // 
             // frmEmployeePayments
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -334,15 +359,16 @@ namespace MontlyPayment
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Label lblLastname;
+        private System.Windows.Forms.Button btnLogout;
+        private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.DataGridViewTextBoxColumn PaymentID;
         private System.Windows.Forms.DataGridViewTextBoxColumn PaymentDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn BasicSalary;
         private System.Windows.Forms.DataGridViewTextBoxColumn Bonus;
         private System.Windows.Forms.DataGridViewTextBoxColumn Discounts;
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalSalary;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Currency;
         private System.Windows.Forms.DataGridViewCheckBoxColumn IsPayed;
         private System.Windows.Forms.DataGridViewTextBoxColumn PayCode;
-        private System.Windows.Forms.Button btnLogout;
-        private System.Windows.Forms.Button btnSettings;
     }
 }
