@@ -1,4 +1,5 @@
 ﻿using Common.Helpers;
+using Domain.Settings;
 using Domain.Users;
 using Entities.Users;
 using Entities.UserType;
@@ -11,13 +12,15 @@ namespace MontlyPayment
     {
         private readonly IUsersBL _userBL;
         private readonly INumberLCD _numberLCD;
+        private readonly ISettingsBL _settingsBL;
 
         public static User user;
 
-        public frmLogin(IUsersBL userBL, INumberLCD numberLCD)
+        public frmLogin(IUsersBL userBL, INumberLCD numberLCD, ISettingsBL settingsBL)
         {
             _userBL = userBL;
             _numberLCD = numberLCD;
+            _settingsBL = settingsBL;
 
             InitializeComponent();
         }
@@ -42,7 +45,7 @@ namespace MontlyPayment
                 }
                 else if ((int)cboUserType.SelectedValue == (int)TypeUser.Employee)
                 {
-                    frmEmployeePayments frmEmployeePayments = new frmEmployeePayments(_userBL, _numberLCD);
+                    frmEmployeePayments frmEmployeePayments = new frmEmployeePayments(_userBL, _numberLCD, _settingsBL);
                     frmEmployeePayments.Show();
                     frmEmployeePayments.FormClosed += Logout;
                     Hide();

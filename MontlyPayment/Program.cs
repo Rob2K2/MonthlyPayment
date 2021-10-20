@@ -1,5 +1,7 @@
 ﻿using Common.Helpers;
+using DataAccess.Settings;
 using DataAccess.Users;
+using Domain.Settings;
 using Domain.Users;
 using SimpleInjector;
 using SimpleInjector.Diagnostics;
@@ -31,6 +33,8 @@ namespace MontlyPayment
             container.Register<IUsersBL, UsersBL>();
             container.Register<IUsersDAL, UsersDAL>();
             container.Register<INumberLCD, NumberLCD>();
+            container.Register<ISettingsBL, SettingsBL>();
+            container.Register<ISettingsDAL, SettingsDAL>();
 
             AutoRegisterWindowsForms(container);
 

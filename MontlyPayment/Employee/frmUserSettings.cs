@@ -1,4 +1,5 @@
-﻿using Domain.Users;
+﻿using Domain.Settings;
+using Domain.Users;
 using System;
 using System.Windows.Forms;
 
@@ -7,12 +8,14 @@ namespace MontlyPayment
     public partial class frmUserSettings : Form
     {
         private readonly IUsersBL _userBL;
+        private readonly ISettingsBL _settingsBL;
         
         public int IdUser { get; set; }
 
-        public frmUserSettings(IUsersBL userBL)
+        public frmUserSettings(IUsersBL userBL, ISettingsBL settingsBL)
         {
             _userBL = userBL;
+            _settingsBL = settingsBL;
 
             InitializeComponent();
         }
@@ -36,6 +39,7 @@ namespace MontlyPayment
         {
             IdUser = frmEmployeePayments.user.UserID;
             FillComboCurrency();
+            cboCurrency.SelectedValue = _settingsBL.GetUserSettings(IdUser).CurrencyID;
         }
 
         private void FillComboCurrency()

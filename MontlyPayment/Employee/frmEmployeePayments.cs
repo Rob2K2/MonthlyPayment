@@ -1,4 +1,5 @@
 ﻿using Common.Helpers;
+using Domain.Settings;
 using Domain.Users;
 using Entities.Users;
 using System;
@@ -10,14 +11,16 @@ namespace MontlyPayment
     {
         private readonly IUsersBL _userBL;
         private readonly INumberLCD _numberLCD;
+        private readonly ISettingsBL _settingsBL;
 
         public static User user;
         public static PaymentDetail employeePayment = new PaymentDetail();
 
-        public frmEmployeePayments(IUsersBL userBL, INumberLCD numberLCD)
+        public frmEmployeePayments(IUsersBL userBL, INumberLCD numberLCD, ISettingsBL settingsBL)
         {
             _userBL = userBL;
             _numberLCD = numberLCD;
+            _settingsBL = settingsBL;
 
             InitializeComponent();
         }
@@ -119,7 +122,7 @@ namespace MontlyPayment
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            frmUserSettings frmUserSettings = new frmUserSettings(_userBL);
+            frmUserSettings frmUserSettings = new frmUserSettings(_userBL, _settingsBL);
             DialogResult res = frmUserSettings.ShowDialog();
             if (res == DialogResult.OK)
             {
