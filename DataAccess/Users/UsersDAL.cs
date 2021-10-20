@@ -94,7 +94,7 @@ namespace DataAccess.Users
                 {
                     con.Open();
                     string query = "SELECT u.UserID, FirstName, LastName, Email, BasicSalary/c.Value BasicSalary, ISNULL(Bonus.B,0)/c.Value Bonus, ISNULL(Discounts.D,0)/c.Value Discounts, " +
-                                   "(s.BasicSalary + ISNULL(Bonus.B, 0) - ISNULL(Discounts.D, 0)) / c.Value TotalSalary, c.Name Currency " +
+                                   "(s.BasicSalary + ISNULL(Bonus.B, 0) - ISNULL(Discounts.D, 0)) / c.Value TotalSalary, c.Name Currency, c.Value CurrencyValue " +
                                    "FROM Users u " +
                                    "INNER JOIN SalaryCalc s ON s.UserID = u.UserID " +
                                    "INNER JOIN UserExchangeRate uer ON uer.UserID = u.UserID " +
@@ -131,7 +131,8 @@ namespace DataAccess.Users
                                 Bonus = Convert.ToDecimal(dr["Bonus"]),
                                 Discounts = Convert.ToDecimal(dr["Discounts"]),
                                 TotalSalary = Convert.ToDecimal(dr["TotalSalary"]),
-                                Currency = dr["Currency"].ToString()
+                                Currency = dr["Currency"].ToString(),
+                                CurrencyValue = Convert.ToDecimal(dr["CurrencyValue"]),
                             };
                             employees.Add(user);
                         }
@@ -220,8 +221,8 @@ namespace DataAccess.Users
                 using (var connection = DBConnection.SqlServerConexion())
                 {
                     connection.Open();
-                    var query = "INSERT INTO MonthlyPaymentDetail(PaymentID, UserID, TotalSalary, Payed, PayCode, topCode, midCode, botCode, Currency) " +
-                                "VALUES(@PaymentID, @UserID, @TotalSalary, @Payed, @PayCode, @topCode, @midCode, @botCode, @Currency)";
+                    var query = "INSERT INTO MonthlyPaymentDetail(PaymentID, UserID, TotalSalary, Payed, PayCode, topCode, midCode, botCode, Currency, CurrencyValue) " +
+                                "VALUES(@PaymentID, @UserID, @TotalSalary, @Payed, @PayCode, @topCode, @midCode, @botCode, @Currency, @CurrencyValue)";
 
                     var cmd = new SqlCommand(query, connection);
 
@@ -234,6 +235,7 @@ namespace DataAccess.Users
                     cmd.Parameters.Add("@midCode", SqlDbType.VarChar).Value = paymentDetail.MidCode;
                     cmd.Parameters.Add("@botCode", SqlDbType.VarChar).Value = paymentDetail.BotCode;
                     cmd.Parameters.Add("@Currency", SqlDbType.VarChar).Value = paymentDetail.Currency;
+                    cmd.Parameters.Add("@CurrencyValue", SqlDbType.Decimal).Value = paymentDetail.CurrencyValue;
 
                     cmd.ExecuteNonQuery();
                 }
@@ -442,8 +444,8 @@ namespace DataAccess.Users
                 using (var con = DBConnection.SqlServerConexion())
                 {
                     con.Open();
-                    string query = "SELECT mp.PaymentDate, BasicSalary/c.Value BasicSalary, ISNULL(Bonus.B,0)/c.Value Bonus, ISNULL(Discounts.D,0)/c.Value Discounts, Payed, Paycode, mp.PaymentID, Currency, " +
-                                   "(sc.BasicSalary + ISNULL(Bonus.B, 0) - ISNULL(Discounts.D, 0)) / c.Value TotalSalary " +
+                    string query = "SELECT mp.PaymentDate, Payed, Paycode, mp.PaymentID, Currency, BasicSalary/CurrencyValue BasicSalary, " +
+                                   "ISNULL(Bonus.B, 0) / CurrencyValue Bonus, ISNULL(Discounts.D, 0) / CurrencyValue Discounts, TotalSalary " +
                                    "FROM MonthlyPaymentDetail mpd " +
                                    "INNER JOIN MonthlyPayment mp ON mp.PaymentID = mpd.PaymentID " +
                                    "INNER JOIN SalaryCalc sc ON sc.UserID = mpd.UserID " +
@@ -477,13 +479,13 @@ namespace DataAccess.Users
                             {
                                 PaymentID = Convert.ToInt32(dr["PaymentID"]),
                                 PaymentDate = Convert.ToDateTime(dr["PaymentDate"]),
-                                BasicSalary = Convert.ToDecimal(dr["BasicSalary"]),
-                                Bonus = Convert.ToDecimal(dr["Bonus"]),
-                                Discounts = Convert.ToDecimal(dr["Discounts"]),
                                 TotalSalary = Convert.ToDecimal(dr["TotalSalary"]),
                                 IsPayed = Convert.ToBoolean(dr["Payed"]),
                                 PayCode = dr["Paycode"].ToString(),
-                                Currency = dr["Currency"].ToString()
+                                Currency = dr["Currency"].ToString(),
+                                BasicSalary = Convert.ToDecimal(dr["BasicSalary"]),
+                                Bonus = Convert.ToDecimal(dr["Bonus"]),
+                                Discounts = Convert.ToDecimal(dr["Discounts"]),
                             };
                             paymentsDetail.Add(paymentDetail);
                         }
@@ -533,8 +535,9 @@ namespace DataAccess.Users
                 using (var con = DBConnection.SqlServerConexion())
                 {
                     con.Open();
-                    string query = "SELECT mp.PaymentDate, u.FirstName Name, u.LastName, (sc.BasicSalary + ISNULL(Bonus.B, 0) - ISNULL(Discounts.D, 0)) / c.Value TotalSalary, " +
-                                   "Paycode, mp.PaymentID, mpd.UserID, topCode, midCode, botCode, Currency " +
+                    string query = "SELECT mp.PaymentDate, u.FirstName Name, u.LastName, (sc.BasicSalary + ISNULL(Bonus.B, 0) - ISNULL(Discounts.D, 0))/CurrencyValue TotalSalary, " +
+                                   "Paycode, mp.PaymentID, mpd.UserID, topCode, midCode, botCode, Currency, " +
+                                   "sc.BasicSalary / CurrencyValue BasicSalary, ISNULL(Bonus.B, 0) / CurrencyValue Bonus, ISNULL(Discounts.D, 0) / CurrencyValue Discounts " +
                                    "FROM MonthlyPaymentDetail mpd " +
                                    "INNER JOIN MonthlyPayment mp ON mp.PaymentID = mpd.PaymentID " +
                                    "INNER JOIN Users u ON u.UserID = mpd.UserID " +
@@ -555,7 +558,7 @@ namespace DataAccess.Users
                                    "WHERE st.TransactionType = 2 " +
                                    "GROUP BY UserID " +
                                    ") Discounts ON Discounts.UserID = mpd.UserID " +
-                                   "WHERE mpd.UserID = @UserID AND mp.PaymentID = @PaymentID"; 
+                                   "WHERE mpd.UserID = @UserID AND mp.PaymentID = @PaymentID";
 
                     var cmd = new SqlCommand(query, con);
 

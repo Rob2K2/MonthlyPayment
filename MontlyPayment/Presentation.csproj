@@ -56,28 +56,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmEmployeePayments.cs">
+    <Compile Include="Employee\frmEmployeePayments.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmEmployeePayments.Designer.cs">
+    <Compile Include="Employee\frmEmployeePayments.Designer.cs">
       <DependentUpon>frmEmployeePayments.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmEmployeePendingPayment.cs">
+    <Compile Include="Employee\frmEmployeePendingPayment.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmEmployeePendingPayment.Designer.cs">
+    <Compile Include="Employee\frmEmployeePendingPayment.Designer.cs">
       <DependentUpon>frmEmployeePendingPayment.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmPaymentList.cs">
+    <Compile Include="HR\frmPaymentList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmPaymentList.Designer.cs">
+    <Compile Include="HR\frmPaymentList.Designer.cs">
       <DependentUpon>frmPaymentList.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmPayment.cs">
+    <Compile Include="HR\frmPayment.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmPayment.Designer.cs">
+    <Compile Include="HR\frmPayment.Designer.cs">
       <DependentUpon>frmPayment.cs</DependentUpon>
     </Compile>
     <Compile Include="frmLogin.cs">
@@ -86,22 +86,16 @@
     <Compile Include="frmLogin.Designer.cs">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmMain.cs">
+    <Compile Include="Reports\frmReport.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmMain.Designer.cs">
-      <DependentUpon>frmMain.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmReport.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmReport.Designer.cs">
+    <Compile Include="Reports\frmReport.Designer.cs">
       <DependentUpon>frmReport.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmReportRecipe.cs">
+    <Compile Include="Reports\frmReportRecipe.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmReportRecipe.Designer.cs">
+    <Compile Include="Reports\frmReportRecipe.Designer.cs">
       <DependentUpon>frmReportRecipe.cs</DependentUpon>
     </Compile>
     <Compile Include="MonthlyPaymentDataSet.Designer.cs">
@@ -131,37 +125,34 @@
       <SubType>Component</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="frmUserSettings.cs">
+    <Compile Include="Employee\frmUserSettings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmUserSettings.Designer.cs">
+    <Compile Include="Employee\frmUserSettings.Designer.cs">
       <DependentUpon>frmUserSettings.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="frmEmployeePayments.resx">
+    <EmbeddedResource Include="Employee\frmEmployeePayments.resx">
       <DependentUpon>frmEmployeePayments.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmEmployeePendingPayment.resx">
+    <EmbeddedResource Include="Employee\frmEmployeePendingPayment.resx">
       <DependentUpon>frmEmployeePendingPayment.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmPaymentList.resx">
+    <EmbeddedResource Include="HR\frmPaymentList.resx">
       <DependentUpon>frmPaymentList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmPayment.resx">
+    <EmbeddedResource Include="HR\frmPayment.resx">
       <DependentUpon>frmPayment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmMain.resx">
-      <DependentUpon>frmMain.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmReport.resx">
+    <EmbeddedResource Include="Reports\frmReport.resx">
       <DependentUpon>frmReport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmReportRecipe.resx">
+    <EmbeddedResource Include="Reports\frmReportRecipe.resx">
       <DependentUpon>frmReportRecipe.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmUserSettings.resx">
+    <EmbeddedResource Include="Employee\frmUserSettings.resx">
       <DependentUpon>frmUserSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -183,6 +174,9 @@
       <LastGenOutput>rptPayment.cs</LastGenOutput>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <None Include="Codes\.gitkeep">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="MonthlyPaymentDataSet.xsc">
       <DependentUpon>MonthlyPaymentDataSet.xsd</DependentUpon>
     </None>
@@ -243,8 +237,6 @@
   <ItemGroup>
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Codes\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

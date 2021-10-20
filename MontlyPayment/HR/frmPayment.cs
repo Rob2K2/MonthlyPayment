@@ -67,17 +67,17 @@ namespace MontlyPayment
                 _userBL.UpdatePaymentList(dtpPaymentDate.Value, txtObservations.Text, idPayment);
             }
 
-            foreach (DataGridViewRow fila in dgvEmployees.Rows)
+            foreach (DataGridViewRow row in dgvEmployees.Rows)
             {
-                var selected = Convert.ToBoolean(fila.Cells["Payed"].Value);
+                var selected = Convert.ToBoolean(row.Cells["Payed"].Value);
                 if (selected)
                 {
                     var payCode = rnd.Next(100000000, 999999999);
                     var arrayCode = _numberLCD.NumberToLCD(payCode).Split('\n');
 
-                    var paymentDetail = SetPaymentDetail(idPayment, fila.Cells["Name"].Value.ToString(), Convert.ToInt32(fila.Cells["UserID"].Value),
-                                                         Convert.ToDecimal(fila.Cells["TotalSalary"].Value), false, payCode.ToString(), arrayCode,
-                                                         fila.Cells["Currency"].Value.ToString());
+                    var paymentDetail = SetPaymentDetail(idPayment, row.Cells["Name"].Value.ToString(), Convert.ToInt32(row.Cells["UserID"].Value),
+                                                         Convert.ToDecimal(row.Cells["TotalSalary"].Value), false, payCode.ToString(), arrayCode,
+                                                         row.Cells["Currency"].Value.ToString(), Convert.ToDecimal(row.Cells["CurrencyValue"].Value));
                     _userBL.InsertPaymentDetail(paymentDetail);
 
                     // Create a file to write to.
@@ -91,7 +91,8 @@ namespace MontlyPayment
             Close();
         }
 
-        private PaymentDetail SetPaymentDetail(int paymentID, string name, int userID, decimal totalSalary, bool isPayed, string payCode, string[] arrayCode, string currency)
+        private PaymentDetail SetPaymentDetail(int paymentID, string name, int userID, decimal totalSalary, bool isPayed, string payCode,
+                                               string[] arrayCode, string currency, decimal currencyValue)
         {
             return new PaymentDetail
             {
@@ -104,7 +105,8 @@ namespace MontlyPayment
                 TopCode = arrayCode[0],
                 MidCode = arrayCode[1],
                 BotCode = arrayCode[2],
-                Currency = currency
+                Currency = currency,
+                CurrencyValue = currencyValue
             };
         }
 
@@ -116,7 +118,7 @@ namespace MontlyPayment
             for (int i = 0; i < employees.Count; i++)
             {
                 dgvEmployees.Rows.Add(employees[i].UserID, employees[i].Firstname, employees[i].Lastname, employees[i].Email, employees[i].BasicSalary,
-                                      employees[i].Bonus, employees[i].Discounts, employees[i].TotalSalary, employees[i].Currency);
+                                      employees[i].Bonus, employees[i].Discounts, employees[i].TotalSalary, employees[i].Currency, employees[i].CurrencyValue);
             }
         }
     }

@@ -40,7 +40,7 @@ namespace MontlyPayment
             this.crvReport.Dock = System.Windows.Forms.DockStyle.Fill;
             this.crvReport.Location = new System.Drawing.Point(0, 0);
             this.crvReport.Name = "crvReport";
-            this.crvReport.Size = new System.Drawing.Size(800, 450);
+            this.crvReport.Size = new System.Drawing.Size(1091, 450);
             this.crvReport.TabIndex = 1;
             this.crvReport.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
             // 
@@ -48,7 +48,7 @@ namespace MontlyPayment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1091, 450);
             this.Controls.Add(this.crvReport);
             this.Name = "frmReportRecipe";
             this.Text = "frmReportRecipe";

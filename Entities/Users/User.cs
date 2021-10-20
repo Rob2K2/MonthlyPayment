@@ -19,5 +19,7 @@
         public decimal TotalSalary { get; set; }
 
         public string Currency { get; set; }
+
+        public decimal CurrencyValue { get; set; }
     }
 }

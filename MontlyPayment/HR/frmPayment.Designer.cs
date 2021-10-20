@@ -52,6 +52,7 @@ namespace MontlyPayment
             this.Discounts = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TotalSalary = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Currency = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CurrencyValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Payed = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployees)).BeginInit();
             this.SuspendLayout();
@@ -83,6 +84,7 @@ namespace MontlyPayment
             this.Discounts,
             this.TotalSalary,
             this.Currency,
+            this.CurrencyValue,
             this.Payed});
             this.dgvEmployees.Location = new System.Drawing.Point(12, 104);
             this.dgvEmployees.Name = "dgvEmployees";
@@ -225,6 +227,13 @@ namespace MontlyPayment
             this.Currency.HeaderText = "Currency";
             this.Currency.Name = "Currency";
             // 
+            // CurrencyValue
+            // 
+            this.CurrencyValue.DataPropertyName = "CurrencyValue";
+            this.CurrencyValue.HeaderText = "CurrencyValue";
+            this.CurrencyValue.Name = "CurrencyValue";
+            this.CurrencyValue.Visible = false;
+            // 
             // Payed
             // 
             this.Payed.DataPropertyName = "IsPayed";
@@ -273,6 +282,7 @@ namespace MontlyPayment
         private System.Windows.Forms.DataGridViewTextBoxColumn Discounts;
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalSalary;
         private System.Windows.Forms.DataGridViewTextBoxColumn Currency;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CurrencyValue;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Payed;
     }
 }

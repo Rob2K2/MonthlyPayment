@@ -75,7 +75,7 @@ namespace MontlyPayment
             this.btnLogin.Location = new System.Drawing.Point(90, 228);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(112, 33);
-            this.btnLogin.TabIndex = 3;
+            this.btnLogin.TabIndex = 4;
             this.btnLogin.Text = "Log In";
             this.btnLogin.UseVisualStyleBackColor = true;
             this.btnLogin.Click += new System.EventHandler(this.button1_Click);
@@ -87,7 +87,7 @@ namespace MontlyPayment
             this.btnCancel.Location = new System.Drawing.Point(294, 228);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(112, 33);
-            this.btnCancel.TabIndex = 4;
+            this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.button2_Click);
@@ -133,7 +133,7 @@ namespace MontlyPayment
             this.cboUserType.Location = new System.Drawing.Point(128, 171);
             this.cboUserType.Name = "cboUserType";
             this.cboUserType.Size = new System.Drawing.Size(121, 28);
-            this.cboUserType.TabIndex = 8;
+            this.cboUserType.TabIndex = 3;
             // 
             // frmLogin
             // 
