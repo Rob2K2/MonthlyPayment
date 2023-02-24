@@ -125,9 +125,22 @@ namespace Tests.LCDTests
         [Fact]
         public void TestNumberThousandToLCDstring()
         {
+            // Arrange
             var expected = LCD.Leds[0] + LCD.Leds[1] + LCD.Leds[1] + LCD.Leds[1] + '\n' + LCD.Leds[7] + LCD.Leds[2] + LCD.Leds[2] + LCD.Leds[2] + '\n' + LCD.Leds[7] + LCD.Leds[3] + LCD.Leds[3] + LCD.Leds[3];
-
+            // Act
             var actual = _numberLCD.NumberToLCD(1000);
+            // Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData(1000, "    _  _  _ \n  || || || |\n  ||_||_||_|")]
+        [InlineData(10, "    _ \n  || |\n  ||_|")]
+        [InlineData(0, " _ \n| |\n|_|")]
+        public void TestNumberToLCDstring(int number, string expected)
+        {
+
+            var actual = _numberLCD.NumberToLCD(number);
 
             Assert.Equal(expected, actual);
         }

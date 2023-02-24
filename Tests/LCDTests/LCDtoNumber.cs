@@ -1,5 +1,7 @@
 ﻿using Common.Helpers;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace Tests.LCDTests
@@ -152,5 +154,18 @@ namespace Tests.LCDTests
 
             Assert.Throws<FormatException>(() => _numberLCD.LCDtoNumber(LED));
         }
+
+        //public static IEnumerable<object[]> GetData(int numberTests)
+        //{
+        //    var allData = new List<object[]>
+        //{
+        //    new object[] {"     _  _  _ ", "|| || || |", "  ||_||_||_|" },
+        //    new object[] { -4, -6, -10 },
+        //    new object[] { -2, 2, 0 },
+        //    new object[] { int.MinValue, -1, int.MaxValue },
+        //};
+
+        //    return allData.Take(numberTests);
+        //}
     }
 }
