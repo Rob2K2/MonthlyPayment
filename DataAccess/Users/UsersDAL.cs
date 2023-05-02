@@ -9,6 +9,13 @@ namespace DataAccess.Users
 {
     public class UsersDAL : IUsersDAL
     {
+        private readonly IDBConnection _dbConnection;
+
+        public UsersDAL(IDBConnection dbConnection)
+        {
+            _dbConnection = dbConnection;
+        }
+        
         public User Login(string username, string password, int userType)
         {
             var user = new User();
@@ -42,7 +49,8 @@ namespace DataAccess.Users
             }
             catch (Exception ex)
             {
-                throw ex;
+                Console.WriteLine(ex);
+                throw;
             }
 
             return user;
@@ -356,7 +364,6 @@ namespace DataAccess.Users
             {
                 throw ex;
             }
-
         }
 
         public void DeletePaymentDetail(int idPayment)
@@ -504,14 +511,14 @@ namespace DataAccess.Users
         {
             try
             {
-                using (var connection = DBConnection.SqlServerConexion())
+                using (var connection = _dbConnection.GetConnection())
                 {
                     connection.Open();
                     var query = "UPDATE MonthlyPaymentDetail " +
                                 "SET Payed = 1 " +
                                 "WHERE UserID = @UserID AND PaymentID = @PaymentID";
 
-                    var cmd = new SqlCommand(query, connection);
+                    var cmd = new SqlCommand(query, (SqlConnection)connection);
 
                     cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
                     cmd.Parameters.Add("@PaymentID", SqlDbType.Int).Value = paymentID;
@@ -523,7 +530,6 @@ namespace DataAccess.Users
             {
                 throw ex;
             }
-
         }
 
         public DataSet RptGetRecipe(int userID, int idPayment)

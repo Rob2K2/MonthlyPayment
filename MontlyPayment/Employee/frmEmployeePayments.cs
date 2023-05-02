@@ -41,16 +41,17 @@ namespace MontlyPayment
             dgvEmployeePayments.AutoGenerateColumns = false;
             dgvEmployeePayments.DataSource = employeePayments;
 
-            foreach (DataGridViewRow fila in dgvEmployeePayments.Rows)
+            foreach (DataGridViewRow row in dgvEmployeePayments.Rows)
             {
-                var wasPayed = Convert.ToBoolean(fila.Cells["IsPayed"].Value);
+                var wasPayed = Convert.ToBoolean(row.Cells["IsPayed"].Value);
                 if (!wasPayed)
                 {
                     MessageBox.Show("you have pending payments, please go to claim.");
 
-                    employeePayment.PayCode = fila.Cells["PayCode"].Value.ToString();
-                    employeePayment.PaymentID = Convert.ToInt32(fila.Cells["PaymentID"].Value);
-                    employeePayment.PaymentDate = Convert.ToDateTime(fila.Cells["PaymentDate"].Value);
+                    employeePayment.PayCode = row.Cells["PayCode"].Value.ToString();
+                    employeePayment.PaymentID = Convert.ToInt32(row.Cells["PaymentID"].Value);
+                    employeePayment.TotalSalary = Convert.ToDecimal(row.Cells["TotalSalary"].Value);
+                    employeePayment.PaymentDate = Convert.ToDateTime(row.Cells["PaymentDate"].Value);
 
                     frmEmployeePendingPayment frmEmployeePendingPayment = new frmEmployeePendingPayment(_userBL, _numberLCD);
                     DialogResult res = frmEmployeePendingPayment.ShowDialog();

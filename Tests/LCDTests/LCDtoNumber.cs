@@ -152,20 +152,16 @@ namespace Tests.LCDTests
         {
             string[] LED = ("bad string").Split('\n');
 
-            Assert.Throws<FormatException>(() => _numberLCD.LCDtoNumber(LED));
+            Assert.Throws<IndexOutOfRangeException>(() => _numberLCD.LCDtoNumber(LED));
         }
 
-        //public static IEnumerable<object[]> GetData(int numberTests)
-        //{
-        //    var allData = new List<object[]>
-        //{
-        //    new object[] {"     _  _  _ ", "|| || || |", "  ||_||_||_|" },
-        //    new object[] { -4, -6, -10 },
-        //    new object[] { -2, 2, 0 },
-        //    new object[] { int.MinValue, -1, int.MaxValue },
-        //};
+        [Theory]
+        [ClassData(typeof(LCDTestData))]
+        public void TestNumberToLCDstring(string[] LED, string expected)
+        {
+            var actual = _numberLCD.LCDtoNumber(LED);
 
-        //    return allData.Take(numberTests);
-        //}
+            Assert.Equal(expected, actual);
+        }
     }
 }

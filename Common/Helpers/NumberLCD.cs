@@ -29,11 +29,11 @@ namespace Common.Helpers
 
         public string LCDtoNumber(string[] code)
         {
-            string lcdCode = string.Empty;
+            var lcdCode = string.Empty;
 
             try
             {
-                for (int j = 0; j < code[0].Length; j += 3)
+                for (var j = 0; j < code[0].Length; j += 3)
                 {
                     var top = code[0].Substring(j, 3);
                     var mid = code[1].Substring(j, 3);
@@ -43,11 +43,11 @@ namespace Common.Helpers
                     lcdCode += lcdKey;
                 }
             }
-            catch (Exception ex)
+            catch (IndexOutOfRangeException ex)
             {
-                throw new FormatException("Code format incorrect");
+                throw new IndexOutOfRangeException("The code you have entered is not correct.");
             }
-
+          
             return lcdCode;
         }
     }

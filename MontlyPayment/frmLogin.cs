@@ -32,28 +32,35 @@ namespace MontlyPayment
 
         private void button1_Click(object sender, EventArgs e)
         {
-            user = _userBL.Login(txtUsername.Text, txtPassword.Text, Convert.ToInt32(cboUserType.SelectedValue));
-
-            if (user.UserID > 0)
+            try
             {
-                if ((int)cboUserType.SelectedValue == (int)TypeUser.HHRR)
+                user = _userBL.Login(txtUsername.Text, txtPassword.Text, Convert.ToInt32(cboUserType.SelectedValue));
+
+                if (user.UserID > 0)
                 {
-                    frmPaymentList frmPaymentList = new frmPaymentList(_userBL, _numberLCD);
-                    frmPaymentList.Show();
-                    frmPaymentList.FormClosed += Logout;
-                    Hide();
+                    if ((int)cboUserType.SelectedValue == (int)TypeUser.HHRR)
+                    {
+                        frmPaymentList frmPaymentList = new frmPaymentList(_userBL, _numberLCD);
+                        frmPaymentList.Show();
+                        frmPaymentList.FormClosed += Logout;
+                        Hide();
+                    }
+                    else if ((int)cboUserType.SelectedValue == (int)TypeUser.Employee)
+                    {
+                        frmEmployeePayments frmEmployeePayments = new frmEmployeePayments(_userBL, _numberLCD, _settingsBL);
+                        frmEmployeePayments.Show();
+                        frmEmployeePayments.FormClosed += Logout;
+                        Hide();
+                    }
                 }
-                else if ((int)cboUserType.SelectedValue == (int)TypeUser.Employee)
+                else
                 {
-                    frmEmployeePayments frmEmployeePayments = new frmEmployeePayments(_userBL, _numberLCD, _settingsBL);
-                    frmEmployeePayments.Show();
-                    frmEmployeePayments.FormClosed += Logout;
-                    Hide();
+                    MessageBox.Show("Username or Password incorrect");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Username or Password incorrect");
+                MessageBox.Show(ex.ToString(), "Warning",MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

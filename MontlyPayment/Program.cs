@@ -7,6 +7,7 @@ using SimpleInjector;
 using SimpleInjector.Diagnostics;
 using System;
 using System.Windows.Forms;
+using DataAccess;
 
 namespace MontlyPayment
 {
@@ -35,6 +36,7 @@ namespace MontlyPayment
             container.Register<INumberLCD, NumberLCD>();
             container.Register<ISettingsBL, SettingsBL>();
             container.Register<ISettingsDAL, SettingsDAL>();
+            container.Register<IDBConnection, SQLServerDBConnection>();
 
             AutoRegisterWindowsForms(container);
 

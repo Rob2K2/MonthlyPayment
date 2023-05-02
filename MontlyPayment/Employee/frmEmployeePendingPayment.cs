@@ -63,9 +63,13 @@ namespace MontlyPayment
                     MessageBox.Show("The code you have entered is not correct.");
                 }
             }
+            catch (IndexOutOfRangeException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show("The code you have entered is not correct.");
+                MessageBox.Show(ex.ToString());
             }
         }
     }
